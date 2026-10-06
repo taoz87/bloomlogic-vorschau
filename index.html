@@ -1604,6 +1604,7 @@
   function schwarmBauen() {
     /* Quellen: das Bild in Zellen, jede Zelle wird ein Blatt in ihrer Farbe (leerer Grund bleibt Papier) */
     var b = Math.max(10, Math.round(Math.max(W, H) / 60)), img = bilder[GESAMT], w = Math.ceil(W / b), h = Math.ceil(H / b), r = rect(img);
+    if (!img || !w || !h || !(L.s * GROSS.s)) return;   /* noch nicht bereit: schwarm bleibt leer und wird spaeter gebaut */
     mosaik.width = w; mosaik.height = h; mctx.imageSmoothingEnabled = true;
     mctx.drawImage(img, r.x / b, r.y / b, r.w / b, r.h / b);
     var d = mctx.getImageData(0, 0, w, h).data, quellen = [], z = rnd(7);
@@ -2018,6 +2019,7 @@
   }
 
   function rendern(p) {
+    if (!W || !H) return;   /* Buehne noch ohne Groesse (z. B. Neuladen mitten auf der Seite): erst nach einpassen() zeichnen */
     ctx.fillStyle = '#05070d'; ctx.fillRect(0, 0, W, H);
     var v = p * (VH_ENDE + VH_VOR) - VH_VOR, info;
     if (v < VH_FILM) schluss.style.visibility = 'hidden';
