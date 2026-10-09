@@ -25,12 +25,17 @@
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "bloomlogic",
-  "description": "Digitalisierung für Betriebe: Software nach Maß, Web-Apps, Automatisierung, Websites mit SEO, Hosting und Betreuung, 3D-Visualisierung aus CAD-Daten und Erklärvideos.",
+  "description": "Digitalisierung für Betriebe: Software nach Maß, Web-Apps, Automatisierung, Websites mit SEO, Wartung und Schulung, 3D-Visualisierung aus CAD-Daten und Erklärvideos.",
   "slogan": "Digitales Wachstum mit Logik.",
+  "founder": {
+    "@type": "Person",
+    "name": "Tahsin Özçiçek"
+  },
   "url": "https://bloomlogic.de/",
   "logo": "https://bloomlogic.de/assets/logo-kopf.svg",
   "image": "https://bloomlogic.de/assets/vorschau.jpg",
-  "email": "kontakt@bloomlogic.de",
+  "email": "info@bloomlogic.de",
+  "telephone": "+49 151 20788220",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Braunschweig",
@@ -92,13 +97,6 @@
         "itemOffered": {
           "@type": "Service",
           "name": "Websites, Webdesign und SEO"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Hosting und Betreuung"
         }
       },
       {
@@ -432,6 +430,13 @@
   #auftakt .zeile > span { display:inline-block; transform:translateY(135%); }
   #auftakt p { position:relative; margin-top:1.1em; color:var(--text2, #46506B); font-weight:300; font-size:clamp(20px, 2.35vw, 36px); line-height:1.42;
                max-width:26em; opacity:0; }
+  /* Was bloomlogic macht, gleich im Startbild (vorher sagte es nur "Hier beginnt Ihr Wachstum") */
+  #auftakt .was { display:flex; flex-wrap:wrap; justify-content:center; gap:0.5em 1.5em; margin:1.4em 0 0; padding:0; list-style:none;
+                  max-width:48em; font-size:clamp(15px, 1.3vw, 20px); font-weight:500; line-height:1.35; color:var(--ink); opacity:0; }
+  #auftakt .was li { display:flex; align-items:center; gap:0.55em; white-space:nowrap; }
+  #auftakt .was li::before { content:""; width:0.42em; height:0.42em; border-radius:0.1em; flex:none; background:linear-gradient(to top, #13AD9C, #00DF3A); }
+  html.dunkel #auftakt .was { color:#E6EBF2; }
+  @media (max-aspect-ratio: 1/1) { #auftakt .was { flex-direction:column; align-items:flex-start; gap:0.4em; margin-top:1.3em; } }   /* Handy: als Liste untereinander */
   #auftakt .korn { display:block; width:18px; height:27px; margin-top:2.4em; opacity:0; position:relative; }
   #auftakt .korn svg { display:block; width:100%; height:100%; overflow:visible; }
   #auftakt .korn::after { content:""; position:absolute; left:50%; top:50%; width:34px; height:34px; margin:-17px 0 0 -17px;
@@ -490,7 +495,7 @@
 <body>
 
 <div id="laden"><div><p id="ladetext">Einen Moment …</p><div id="balken"><i></i></div></div></div>
-<div id="hud">…</div>
+<div id="hud" class="aus">…</div>
 <div id="hinweis"><span aria-hidden="true">Scrollen</span><span class="pfeil" aria-hidden="true"><i></i><b></b></span><span class="prozent" aria-hidden="true">0 %</span><button class="ueberspringen" type="button" aria-label="Präsentation überspringen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l8 6-8 6z"/><path d="M12 6l8 6-8 6z"/></svg>Überspringen</button></div>
 
 <header id="kopf"><div class="innen">
@@ -502,7 +507,6 @@
         <a href="software-handwerk-pflege/"><b>Software für Handwerk und Pflege</b><span>Aufträge, Termine, Stunden, E-Rechnung</span></a>
         <a href="website-braunschweig/"><b>Websites und SEO</b><span>Gefunden werden in Braunschweig und Umgebung</span></a>
         <a href="3d-visualisierung-cad/"><b>3D-Visualisierung aus CAD</b><span>Produktbilder, Explosionsansichten, Videos</span></a>
-        <a href="hosting-betreuung/"><b>Hosting und Betreuung</b><span>Hosting in Deutschland, Wartung, Schulung</span></a>
       </div></div></div>
   </nav>
   <div class="rechts">
@@ -519,7 +523,6 @@
     <a href="software-handwerk-pflege/">Software für Handwerk und Pflege</a>
     <a href="website-braunschweig/">Websites und SEO</a>
     <a href="3d-visualisierung-cad/">3D-Visualisierung aus CAD</a>
-    <a href="hosting-betreuung/">Hosting und Betreuung</a>
   </div></div>
   <a class="btn primaer" href="#kontakt">Lass uns reden</a>
 </nav>
@@ -556,6 +559,7 @@
     </div>
     <h1><span class="ort">Digitalisierung für Betriebe in Braunschweig und Umgebung</span> <span class="zeile"><span>Hier beginnt</span></span> <span class="zeile"><span class="verlauf-text">Ihr Wachstum.</span></span></h1>
     <p>Scrollen Sie und schauen Sie zu, wie aus Papierkram ein klarer Ablauf wird.</p>
+    <ul class="was" aria-label="Leistungen"><li>Software nach Maß</li><li>Websites und SEO</li><li>3D-Visualisierung</li></ul>
     <span class="korn"><svg viewBox="0 0 20 30" aria-hidden="true"><path d="M10 1C17.5 7.5 18.5 18 10 29C1.5 18 2.5 7.5 10 1Z" fill="url(#blattVerlauf)"/>
       <path d="M10 5.5C12.2 11 12.2 18 10 24" fill="none" stroke="rgba(245,247,246,.55)" stroke-width="1.2" stroke-linecap="round"/></svg></span>
     <span class="impuls"><i></i><i></i><i></i><b></b><b></b><b></b><b></b><b></b><b></b></span>
@@ -708,141 +712,97 @@
 
 <!-- Nach dem Hero: die Webseite mit den Inhalten der bisherigen Seite (Port 8090) -->
 <main id="seite">
-<section class="section" id="alltag"><div class="wrap">
+<section class="section" id="leistungen"><div class="wrap">
+  <div class="kopfzeile">
+    <p class="eyebrow">Leistungen</p>
+    <h2 class="h2">Was ich für Ihren Betrieb mache</h2>
+    <p class="body">Drei Leistungen, ein Ansprechpartner. Welcher Schritt sich für Sie zuerst lohnt, klären wir im kostenlosen Erstgespräch. Ohne Angebot über alles und ohne Verpflichtung.</p>
+  </div>
+  <div class="leistungen-raster">
+    <article class="kachel klickbar lk" data-zeigen style="transition-delay:0ms">
+      <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18"/><path d="M7 12.6l1.6 1.6 3-3.1"/><path d="M14 13h3.5M7 16.8h10.5"/></svg></span>
+      <h3 class="h3">Software nach Maß</h3>
+      <p class="body">Aufträge, Termine, Zeiten und Rechnungen in einem System, das Ihr Team im Büro und auf dem Handy nutzt.</p>
+      <ul><li>Auftrags- und Terminverwaltung</li><li>Zeiterfassung und Nachweise per Handy</li><li>E-Rechnung direkt aus dem Auftrag</li></ul>
+      <p class="lk-fuer">Für Handwerk, Pflege und Dienstleister</p>
+      <div class="lk-fuss"><a class="mehr" href="software-handwerk-pflege/">Mehr zur Software</a><a class="lk-bsp" href="software-handwerk-pflege/#betreuungsvoll">Beispiel: Betreuungsvoll</a></div>
+    </article>
+    <article class="kachel klickbar lk" data-zeigen style="transition-delay:90ms">
+      <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="15" rx="2"/><path d="M2.5 8h19"/><circle cx="11" cy="13.2" r="2.7"/><path d="M13.1 15.3l2.6 2.6"/></svg></span>
+      <h3 class="h3">Websites und SEO</h3>
+      <p class="body">Eine Website, die bei Google gefunden wird und aus Besuchern Anfragen macht.</p>
+      <ul><li>Für das Handy gebaut, schnell geladen</li><li>Sichtbar in Ihrer Region bei Google</li><li>Anfragen per Anruf, WhatsApp oder Formular mit einem Tipp</li></ul>
+      <p class="lk-fuer">Für alle Betriebe, die mehr Anfragen wollen</p>
+      <div class="lk-fuss"><a class="mehr" href="website-braunschweig/">Mehr zu Websites</a><a class="lk-bsp" href="#referenzen">Beispiele ansehen</a></div>
+    </article>
+    <article class="kachel klickbar lk" data-zeigen style="transition-delay:180ms">
+      <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg></span>
+      <h3 class="h3">3D-Visualisierung</h3>
+      <p class="body">Produktbilder, Erklärfilme und Animationen, aus Ihren CAD-Daten oder neu modelliert. Ohne Fotostudio und ohne Musterbau.</p>
+      <ul><li>Produktbilder, Varianten und Explosionsdarstellungen</li><li>Animationen und Erklärfilme</li><li>Dazu Postproduktion, Layout und Print</li></ul>
+      <p class="lk-fuer">Für jeden Betrieb, vom Hersteller bis zum Pflegedienst</p>
+      <div class="lk-fuss"><a class="mehr" href="3d-visualisierung-cad/">Mehr zur 3D-Visualisierung</a><a class="lk-bsp" href="3d-visualisierung-cad/#arbeitsproben">Beispiel: Krankenhaus-Konzept</a></div>
+    </article>
+  </div>
+  <div class="betreuung-leiste" data-zeigen>
+    <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.2c0 4.4-3 7.9-7 9.8-4-1.9-7-5.4-7-9.8V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></span>
+    <div><h3 class="h3">Und danach? Ich bleibe Ihr Ansprechpartner.</h3>
+      <p class="body">Zu jeder Leistung gehören Updates, Sicherungen und eine Einweisung für Ihr Team. Ihre Website oder Software läuft bei einem Anbieter in Deutschland, der Vertrag läuft auf Sie. Um den Rest kümmere ich mich.</p></div>
+  </div>
+  <div class="anstoss" data-zeigen><p>Nicht sicher, womit Sie anfangen? Im kostenlosen Erstgespräch finden wir es heraus.</p><a class="btn primaer" href="#kontakt">Lass uns reden</a></div>
+</div></section>
+
+<section class="section sunk" id="digitalisierung"><div class="wrap">
   <div class="kopfzeile">
     <p class="eyebrow">Kennen Sie das?</p>
-    <h2 class="h2">Viel Arbeit, die niemand bezahlt</h2>
-    <p class="body">So sieht der Alltag in vielen Betrieben aus. Jede dieser Stunden fehlt Ihnen für Kunden, Aufträge und den Feierabend. Das muss nicht so bleiben.</p>
+    <h2 class="h2">Aus Zetteln werden Daten</h2>
+    <p class="body">Viel Arbeit, die niemand bezahlt. Jede dieser Stunden fehlt Ihnen für Kunden, Aufträge und den Feierabend. Das muss nicht so bleiben.</p>
   </div>
   <ul class="alltag">
     <li data-zeigen style="transition-delay:0ms"><span class="vorher"><span>Der Auftragszettel liegt im Auto.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Jeder Auftrag ist im System, im Büro und auf dem Handy.</span></li>
     <li data-zeigen style="transition-delay:70ms"><span class="vorher"><span>Rechnungen schreiben Sie am Sonntag.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Die Rechnung entsteht aus dem Auftrag, mit einem Klick.</span></li>
-    <li data-zeigen style="transition-delay:140ms"><span class="vorher"><span>Termine laufen über WhatsApp.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Alle Termine stehen in einem Kalender, den das ganze Team sieht.</span></li>
-    <li data-zeigen style="transition-delay:210ms"><span class="vorher"><span>Drei Excel-Listen, drei verschiedene Stände.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Eine Quelle, ein Stand, für alle.</span></li>
-    <li data-zeigen style="transition-delay:280ms"><span class="vorher"><span>Stundenzettel werden abgetippt.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Zeiten erfasst Ihr Team direkt, auch unterwegs.</span></li>
-    <li data-zeigen style="transition-delay:350ms"><span class="vorher"><span>Vor dem Steuertermin wird der Schuhkarton sortiert.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Belege und Rechnungen liegen sortiert bereit, als fertiger Export für den Steuerberater.</span></li>
+    <li data-zeigen style="transition-delay:140ms"><span class="vorher"><span>Stundenzettel werden abgetippt.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Zeiten erfasst Ihr Team direkt, auch unterwegs.</span></li>
+    <li data-zeigen style="transition-delay:210ms"><span class="vorher"><span>Vor dem Steuertermin wird der Schuhkarton sortiert.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Belege und Rechnungen liegen sortiert bereit, als fertiger Export für den Steuerberater.</span></li>
   </ul>
-  <div class="anstoss" data-zeigen><p>Erkennen Sie Ihren Betrieb wieder? Dann ist jetzt ein guter Zeitpunkt.</p><a class="btn primaer" href="#kontakt">Lass uns reden</a></div>
-</div></section>
-
-<section class="section sunk" id="leistungen"><div class="wrap">
-  <div class="kopfzeile">
-    <p class="eyebrow">Leistungen</p>
-    <h2 class="h2">Drei Wege, auf denen ein Betrieb wächst</h2>
-    <p class="body">Meist fängt es mit einem davon an. Welcher Schritt sich für Sie zuerst lohnt, klären wir gemeinsam im kostenlosen Erstgespräch. Ohne Angebot über alles und ohne Verpflichtung.</p>
-  </div>
-  <div class="bento">
-    <div class="kachel k-software klickbar" data-zeigen>
-      <p class="eyebrow">Handwerk, Pflege, Dienstleister</p>
-      <h3 class="h3">Prozesse digitalisieren</h3>
-      <p class="body">Schluss mit Zetteln, Excel und Zuruf. Ein System, das alle im Team kennen, zeigt auf einen Blick, was ansteht und was erledigt ist. Das spart Zeit, jeden Tag.</p>
-      <ul><li>Abläufe aufnehmen und verschlanken</li><li>Eigene Anwendung statt Software von der Stange</li><li>Übernahme Ihrer bestehenden Daten</li><li>E-Rechnung direkt aus dem Auftrag</li><li>UI- und UX-Design: Oberflächen, die man gern benutzt</li></ul>
-      <a class="mehr" href="software-handwerk-pflege/">Mehr zur Software</a>
-      <div class="kachel-unten"><div class="mini-app" aria-hidden="true">
-        <div class="ma-kopf">Neuer Auftrag<em>Offen</em></div>
-        <div class="ma-felder">
-          <label>Kunde</label><span data-text="Familie Becker"></span>
-          <label>Leistung</label><span data-text="Bremsen vorne erneuern"></span>
-          <label>Termin</label><span data-text="Mo., 8:00 Uhr"></span>
-        </div>
-        <div class="ma-pos">
-          <div><span>Bremsscheiben vorne (2×)</span><span>248,00 €</span></div>
-          <div><span>Bremsbeläge</span><span>86,00 €</span></div>
-          <div><span>Arbeitszeit 1,5 h</span><span>152,00 €</span></div>
-        </div>
-        <div class="ma-fuss"><b>0,00 €</b><span class="ma-knopf"><svg fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>E-Rechnung versenden</span></span></div>
-      </div></div>
-    </div>
-    <div class="kachel k-web klickbar" data-zeigen>
-      <p class="eyebrow">Betriebe mit Auftragslücken</p>
-      <h3 class="h3">Kunden gewinnen</h3>
-      <p class="body">Mehr Anfragen, ohne mehr Aufwand: eine Website, die bei Google gefunden wird und überzeugt, dazu passende Ausschreibungen direkt ins Postfach. Auf Wunsch barrierefrei nach BFSG.</p>
-      <a class="mehr" href="website-braunschweig/">Mehr zu Websites</a>
-      <div class="kachel-unten"><div class="mini-suche" aria-hidden="true">
-        <div class="ms-feld"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span data-text="Malerbetrieb in der Nähe"></span></div>
-        <div class="ms-treffer"><small>ihr-betrieb.de</small><b>Ihr Betrieb · Malerarbeiten in Braunschweig</b><p>Leistungen · Referenzen · Angebot anfragen</p></div>
-        <div class="ms-meldung"><i></i>Auftragsradar: 2 neue Ausschreibungen passen zu Ihnen</div>
-      </div></div>
-    </div>
-    <div class="kachel k-betrieb klickbar" data-zeigen style="transition-delay:90ms">
-      <p class="eyebrow">Das Fundament</p>
-      <h3 class="h3">Betrieb und Betreuung</h3>
-      <p class="body">Sie kümmern sich um Ihre Kunden, ich mich um Ihr System. Updates, Sicherungen und jemand, der drangeht, wenn etwas klemmt.</p>
-      <a class="mehr" href="hosting-betreuung/">Mehr zur Betreuung</a>
-      <div class="kachel-unten"><div class="mini-log" aria-hidden="true">
-        <div class="ml-status"><i></i>Ihr System läuft<em>DSGVO-konform</em></div>
-        <div class="zeile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sicherung erstellt<time>03:00</time></div>
-        <div class="zeile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sicherheitsupdate eingespielt<time>03:04</time></div>
-        <div class="zeile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Zertifikat erneuert<time>03:06</time></div>
-      </div></div>
-    </div>
-    <div class="kachel k-3d" data-zeigen style="transition-delay:90ms">
-      <div class="k3d-text">
-        <p class="eyebrow">Hersteller und Maschinenbau</p>
-        <h3 class="h3">Produkte sichtbar machen</h3>
-        <p class="body">Aus Ihren CAD-Daten werden Bilder, Explosionsdarstellungen und Erklärvideos, die verkaufen. Ohne Fotostudio und ohne Musterbau.</p>
-        <button class="film-link" type="button" style="color:#000033">Wie der Film oben: noch einmal ansehen</button>
-        <a class="mehr" href="3d-visualisierung-cad/">Mehr zur 3D-Visualisierung</a>
-  <p class="k3d-hinweis"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg><span>Maus bewegen: zerlegen</span></p>
-      </div>
-      <img src="frames/f_0480.jpg" loading="lazy" alt="Bremse aus CAD-Daten, gerendert und in ihre Teile zerlegt" width="1280" height="720" decoding="async">
-    </div>
-    <div class="kachel k-schulung klickbar" data-zeigen>
-      <p class="eyebrow">Damit es genutzt wird</p>
-      <h3 class="h3">Einweisung und Schulung</h3>
-      <p class="body">Ein neues System bringt nur etwas, wenn alle es nutzen. Deshalb lernt Ihr Team es direkt bei Ihnen. Auf Wunsch auch: Website selbst pflegen, Google-Unternehmensprofil, digitaler Büroalltag.</p>
-      <a class="mehr" href="hosting-betreuung/#schulung">Mehr zur Schulung</a>
-    </div>
-    <div class="kachel k-ansprech" data-zeigen style="transition-delay:90ms">
-      <h3 class="h3">Ein Ansprechpartner. Von der ersten Idee bis zum System, das jeden Tag läuft.</h3>
-      <div class="btn-row"><a class="btn primaer" href="#kontakt">Lass uns reden</a></div>
-    </div>
-  </div>
-</div></section>
-
-<section class="section" id="digitalisierung"><div class="wrap">
-  <div class="kopfzeile" data-zeigen>
-    <p class="eyebrow">So läuft Digitalisierung</p>
-    <h2 class="h2">Aus Zetteln werden Daten</h2>
-    <p class="body">Formulare, Stundenzettel, Lieferscheine und Notizen laufen einmal durch: digitalisieren, prüfen, freigeben. Danach liegt alles geordnet in Ihrem System, auffindbar und sicher. Auch für den Steuerberater: Er bekommt Ihre Unterlagen sortiert und digital statt eines Ordners voller Zettel. Das spart Rückfragen und oft auch Kosten.</p>
+  <div class="betreuung-leiste dig-bruecke" data-zeigen>
+    <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h7l4 4v5"/><path d="M13 3v4h4"/><path d="M6 3a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 6 21h5"/><path d="M8 11h5M8 14.5h3"/><path d="M14.5 18.2l2 2 4-4.2"/></svg></span>
+    <div><h3 class="h3">So wird aus dem Zettel ein Datensatz</h3>
+    <p class="body">Formulare, Stundenzettel, Lieferscheine und Notizen laufen einmal durch: digitalisieren, prüfen, freigeben. Danach liegt alles geordnet in Ihrem System, auffindbar und sicher. Auch für den Steuerberater: Er bekommt Ihre Unterlagen sortiert und digital statt eines Ordners voller Zettel. Das spart Rückfragen und oft auch Kosten.</p></div>
   </div>
   <div class="fliessband" role="img" aria-label="Animation in 3D: Zettel, Tabellen, Fotos und Notizen fahren auf einem Fließband durch die Stationen Digitalisierung, Qualitätsprüfung und Freigabe.">
     <canvas></canvas>
   </div>
-</div></section>
-
-<section class="section" id="branchen"><div class="wrap">
-  <div class="kopfzeile">
-    <p class="eyebrow">Für Ihre Branche</p>
-    <h2 class="h2">Was das in Ihrem Betrieb bedeutet</h2>
-    <p class="body">Wählen Sie Ihre Branche und sehen Sie, was sich bei Ihnen ändern würde.</p>
-  </div>
-  <div class="reiter" data-zeigen>
-    <div class="reiter-leiste" role="tablist" aria-label="Branchen"><button type="button" role="tab" id="tab-handwerk" aria-controls="br-handwerk" aria-selected="true" tabindex="0">Handwerk</button><button type="button" role="tab" id="tab-pflege" aria-controls="br-pflege" aria-selected="false" tabindex="-1">Pflege und Betreuung</button><button type="button" role="tab" id="tab-kfz" aria-controls="br-kfz" aria-selected="false" tabindex="-1">Kfz-Betriebe</button><button type="button" role="tab" id="tab-hersteller" aria-controls="br-hersteller" aria-selected="false" tabindex="-1">Hersteller und Maschinenbau</button><span class="reiter-strich" aria-hidden="true"></span></div>
-    <div class="br-feld" role="tabpanel" id="br-handwerk" aria-labelledby="tab-handwerk">
-      <div><h3 class="h3">Typisch</h3><ul class="br-liste typisch"><li>Aufträge stehen auf Zetteln und im Kopf</li><li>Stundenzettel werden am Monatsende abgetippt</li><li>Angebote entstehen in Word, Rechnungen in Excel</li></ul></div>
-      <div><h3 class="h3">Was ich baue</h3><ul class="br-liste"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Auftragsverwaltung mit Terminen und Material</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Zeiterfassung per Handy, direkt auf der Baustelle</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Angebot, Auftrag und Rechnung aus einem System</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Eine Website, über die Anfragen hereinkommen</li></ul></div>
-      <div class="br-bsp"><p class="eyebrow">Beispiel</p><p>Wie im Film oben: vom Auftrag bis zur Rechnung in einer Software.</p><a href="#top" data-film>Film ansehen</a></div>
+  <div class="rechner-block dunkel-block navy-raster" id="zeitersparnis">
+    <div class="spalte" style="max-width:34rem" data-zeigen>
+      <span class="pixel-lebt"><svg width="84" height="65.52" viewBox="585 280 82 76" aria-hidden="true" style="display:block;overflow:visible"><g fill="#00df3a">
+        <rect x="588.67" y="282.82" width="15.62" height="15.62" rx="3.07" opacity="0.55"/><rect x="600.48" y="309.09" width="23.03" height="23.03" rx="3.07" opacity="0.8"/>
+        <rect x="633.57" y="335.36" width="17.71" height="17.71" rx="3.07" opacity="0.65"/><rect x="640.05" y="301.45" width="21.29" height="21.29" rx="3.07"/>
+        <rect x="618.99" y="285.36" width="13.31" height="13.31" rx="3.33" opacity="0.45"/></g></svg></span>
+      <h3 class="h2">Wachstum braucht heute <span class="verlauf-text">Digitalisierung.</span></h3>
+      <p class="lede">Nicht weil es modern ist, sondern weil Ihre Zeit woanders besser aufgehoben ist als in Listen, die jemand von Hand pflegt. Was ein System übernehmen kann, soll ein System übernehmen.</p>
     </div>
-    <div class="br-feld" role="tabpanel" id="br-pflege" aria-labelledby="tab-pflege" hidden>
-      <div><h3 class="h3">Typisch</h3><ul class="br-liste typisch"><li>Leistungsnachweise auf Papier</li><li>Monatsabrechnung in Excel, Stunde für Stunde</li><li>Einsätze werden per Telefon verteilt</li></ul></div>
-      <div><h3 class="h3">Was ich baue</h3><ul class="br-liste"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Zeiterfassung am Telefon, direkt beim Einsatz</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Abrechnung auf Knopfdruck</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Einsatzplan, den das ganze Team sieht</li></ul></div>
-      <div class="br-bsp"><p class="eyebrow">Beispiel</p><p>Betreuungsvoll: Betreuerinnen erfassen ihre Zeiten am Telefon, die Abrechnung entsteht auf Knopfdruck.</p><a href="#referenzen">Zum Praxisbeispiel</a></div>
-    </div>
-    <div class="br-feld" role="tabpanel" id="br-kfz" aria-labelledby="tab-kfz" hidden>
-      <div><h3 class="h3">Typisch</h3><ul class="br-liste typisch"><li>Werkstatttermine laufen nur übers Telefon</li><li>Die Fahrzeughistorie steckt in Ordnern</li><li>Online findet Sie kaum jemand</li></ul></div>
-      <div><h3 class="h3">Was ich baue</h3><ul class="br-liste"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Terminplanung für Werkstatt und Annahme</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Auftragsmappe pro Fahrzeug, mit Positionen und Zeiten</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Website und Sichtbarkeit bei Google</li></ul></div>
-      <div class="br-bsp"><p class="eyebrow">Beispiel</p><p>Braunschweiger Kraftfahrzeuge: Website, Sichtbarkeit bei Google und ein Weg, auf dem Anfragen ankommen.</p><a href="#referenzen">Zum Praxisbeispiel</a></div>
-    </div>
-    <div class="br-feld" role="tabpanel" id="br-hersteller" aria-labelledby="tab-hersteller" hidden>
-      <div><h3 class="h3">Typisch</h3><ul class="br-liste typisch"><li>Fotostudio und Musterbau kosten Zeit und Geld</li><li>Komplexe Produkte sind schwer zu erklären</li><li>Für die Messe fehlt gutes Bildmaterial</li></ul></div>
-      <div><h3 class="h3">Was ich baue</h3><ul class="br-liste"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Renderings direkt aus Ihren CAD-Daten</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Explosionsdarstellungen und Animationen</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Erklärvideos für Vertrieb, Messe und Website</li></ul></div>
-      <div class="br-bsp"><p class="eyebrow">Beispiel</p><p>Die Bremse in der Kachel oben: aus CAD-Daten gerendert und in ihre Teile zerlegt.</p><a href="#leistungen">Ansehen</a></div>
+    <div class="rechner" data-zeigen style="transition-delay:120ms">
+      <p class="eyebrow">Rechnen Sie selbst</p>
+      <h3 class="h3">Wie viel Zeit geht bei Ihnen jeden Tag für Abtippen, Ablegen und Suchen in Ordnern und Akten drauf?</h3>
+      <div class="r-wahl" role="radiogroup" aria-label="Zeit pro Tag">
+        <button type="button" role="radio" aria-checked="false" data-h="1">1 Stunde</button>
+        <button type="button" role="radio" aria-checked="true" data-h="2">2 Stunden</button>
+        <button type="button" role="radio" aria-checked="false" data-h="3">3 Stunden</button>
+        <button type="button" role="radio" aria-checked="false" data-h="4">4 Stunden und mehr</button>
+      </div>
+      <p class="r-basis">Pro Stunde Papierkram sparen Sie mit einem passenden System rund <b>24 Minuten</b>.</p>
+      <div class="r-ergebnis" aria-live="polite">
+        <p class="r-vor">Sie gewinnen</p>
+        <p class="r-zahl"><strong data-r="tag">48 Min.</strong> <span>jeden Tag</span></p>
+        <p class="r-jahr">Im Jahr sind das rund <b data-r="jahr">5 Arbeitswochen</b>.</p>
+      </div>
+      <p class="r-hinweis">Beispielrechnung, keine Garantie. Grundlage: rund 24 Minuten pro Stunde Papierkram, 230 Arbeitstage im Jahr, 40 Stunden pro Woche.</p>
     </div>
   </div>
+  <div class="anstoss" data-zeigen><p>Erkennen Sie Ihren Betrieb wieder? Dann ist jetzt ein guter Zeitpunkt.</p><a class="btn primaer" href="#kontakt">Lass uns reden</a></div>
 </div></section>
 
-<section class="section sunk" id="ablauf"><div class="wrap">
+<section class="section" id="ablauf"><div class="wrap">
   <div class="kopfzeile">
     <p class="eyebrow">So arbeite ich</p>
     <h2 class="h2">Vier Schritte, bis Ihr Betrieb leichter läuft</h2>
@@ -864,100 +824,99 @@
   </div>
 </div></section>
 
-<section class="section" id="referenzen"><div class="wrap">
+<section class="section sunk" id="referenzen"><div class="wrap">
   <div class="kopfzeile">
     <p class="eyebrow">Referenzen</p>
     <h2 class="h2">Was daraus geworden ist</h2>
-    <p class="body">Echte Betriebe, echte Abläufe. So sieht es aus, wenn aus Papierkram ein System wird, das mitarbeitet.</p>
+    <p class="body">Echte Betriebe aus der Region: Software, die jeden Tag läuft, und Websites, über die Anfragen kommen.</p>
   </div>
-  <div class="cards">
-    <div class="card" data-zeigen style="transition-delay:0ms">
-      <p class="eyebrow">Pflege- und Betreuungsdienst</p><h3 class="h3">Betreuungsvoll</h3>
-      <p class="body">Leistungsnachweise und Monatsabrechnungen liefen über Papier und Excel. Heute erfassen Betreuerinnen ihre Zeiten am Telefon, die Abrechnung entsteht auf Knopfdruck.</p>
+  <article class="ref-haupt" data-zeigen>
+    <div class="ref-bild">
+      <img class="ref-rechner" src="assets/referenzen/bv-app-monatsblatt.jpg" alt="Betreuungsvoll-App am Rechner: Monatsblatt einer Kundin mit Einsätzen, Stunden und beiden Unterschriften" width="785" height="500" loading="lazy" decoding="async">
+      <span class="handy-rahmen"><img src="assets/referenzen/bv-app-erfassen-handy.jpg" alt="Betreuungsvoll-App am Handy: Einsatz erfassen mit Beginn, Ende und Tätigkeiten" width="412" height="736" loading="lazy" decoding="async"></span>
     </div>
-    <div class="card" data-zeigen style="transition-delay:90ms">
-      <p class="eyebrow">Taxi- und Mietwagenunternehmen</p><h3 class="h3">Auftragsradar</h3>
-      <p class="body">Öffentliche Ausschreibungen für Krankenfahrten und Schülerverkehr werden täglich durchsucht und gefiltert. Passende Vergaben kommen per Mail, statt dass jemand Portale durchklickt.</p>
+    <div class="ref-text">
+      <p class="eyebrow">Alltagshilfe aus Gifhorn</p>
+      <h3 class="h3">Betreuungsvoll: Software und Website aus einer Hand</h3>
+      <p class="body">Leistungsnachweise liefen über Papier und Excel. Heute erfasst das Team Zeiten und Tätigkeiten am Handy, Kunde und Mitarbeiter unterschreiben direkt dort, und das Monatsblatt für die Pflegekasse entsteht auf Knopfdruck. Dazu kam die neue Website.</p>
+      <ul class="ref-merkmale"><li>Anmeldung mit Zwei-Faktor</li><li>Bereiche für Leitung und Team</li><li>Unterschrift am Handy</li><li>Monatsblatt als PDF</li><li>Server in Deutschland</li></ul>
+      <div class="ref-links"><a class="btn primaer" href="software-handwerk-pflege/#betreuungsvoll">So funktioniert die App</a><a class="btn zweit" href="https://betreuungsvoll.de/" target="_blank" rel="noopener">Website ansehen</a></div>
     </div>
-    <div class="card" data-zeigen style="transition-delay:180ms">
-      <p class="eyebrow">Kfz-Betrieb</p><h3 class="h3">Braunschweiger Kraftfahrzeuge</h3>
-      <p class="body">Website, Sichtbarkeit bei Google und ein Weg, auf dem Anfragen tatsächlich ankommen.</p>
-    </div>
+  </article>
+  <div class="ref-raster">
+    <article class="ref-karte" data-zeigen style="--ref:#CEF555;transition-delay:0ms">
+      <div class="ref-geraetefeld" aria-hidden="true"><img class="geraet-rechner" src="assets/referenzen/web-solargrid-rechner.jpg" alt="" width="960" height="600" loading="lazy" decoding="async"><span class="handy-rahmen"><img src="assets/referenzen/web-solargrid.jpg" alt="" width="560" height="1060" loading="lazy" decoding="async"></span></div>
+      <p class="eyebrow">Photovoltaik · Braunschweig</p>
+      <h3 class="h3">SolarGrid</h3>
+      <p class="body">Neue Website für einen Solarbetrieb: klare Leistungen von der Planung bis zur Wartung, Angebot anfordern mit einem Klick.</p>
+      <a class="ref-link" href="https://www.solargridbs.de/" target="_blank" rel="noopener">Website ansehen</a>
+    </article>
+    <article class="ref-karte" data-zeigen style="--ref:#E5383B;transition-delay:90ms">
+      <div class="ref-geraetefeld" aria-hidden="true"><img class="geraet-rechner" src="assets/referenzen/web-dkumzug-rechner.jpg" alt="" width="960" height="600" loading="lazy" decoding="async"><span class="handy-rahmen"><img src="assets/referenzen/web-dkumzug.jpg" alt="" width="560" height="1060" loading="lazy" decoding="async"></span></div>
+      <p class="eyebrow">Umzugsunternehmen · Gifhorn</p>
+      <h3 class="h3">DK Umzug</h3>
+      <p class="body">Neue Website für Umzüge in der Region und bundesweit, mit kostenloser Besichtigung als Anfrage.</p>
+      <a class="ref-link" href="https://dk-umzug.de/" target="_blank" rel="noopener">Website ansehen</a>
+    </article>
+    <article class="ref-karte" data-zeigen style="--ref:#F2B43C;transition-delay:0ms">
+      <div class="ref-geraetefeld" aria-hidden="true"><img class="geraet-rechner" src="assets/referenzen/web-ateskeys-rechner.jpg" alt="" width="960" height="600" loading="lazy" decoding="async"><span class="handy-rahmen"><img src="assets/referenzen/web-ateskeys.jpg" alt="" width="560" height="1060" loading="lazy" decoding="async"></span></div>
+      <p class="eyebrow">Schlüsseldienst · Braunschweig</p>
+      <h3 class="h3">ATES Schlüsseldienst</h3>
+      <p class="body">Autoschlüssel anfertigen in Braunschweig: neue Website mit klaren Leistungen, Anruf und WhatsApp mit einem Tipp.</p>
+      <a class="ref-link" href="https://ateskeys.de/" target="_blank" rel="noopener">Website ansehen</a>
+    </article>
+    <article class="ref-karte" data-zeigen style="--ref:#A45BD6;transition-delay:90ms">
+      <div class="ref-geraetefeld" aria-hidden="true"><img class="geraet-rechner" src="assets/referenzen/web-betreuungsvoll-rechner.jpg" alt="" width="960" height="600" loading="lazy" decoding="async"><span class="handy-rahmen"><img src="assets/referenzen/web-betreuungsvoll.jpg" alt="" width="560" height="1060" loading="lazy" decoding="async"></span></div>
+      <p class="eyebrow">Alltagshilfe · Gifhorn</p>
+      <h3 class="h3">Betreuungsvoll</h3>
+      <p class="body">Die Website zur App: herzlich, klar auf Gifhorn und Umgebung ausgerichtet, mit Kosteninfo zur Pflegekasse und Anfrage mit einem Tipp.</p>
+      <a class="ref-link" href="https://betreuungsvoll.de/" target="_blank" rel="noopener">Website ansehen</a>
+    </article>
   </div>
   <div class="anstoss" data-zeigen><p>Ihr Betrieb könnte das nächste Beispiel sein.</p><a class="btn primaer" href="#kontakt">Lass uns reden</a></div>
 </div></section>
 
-<section class="band" aria-label="Meine Digitalisierungstools und für wen ich digitalisiere">
+<section class="band" aria-label="Für wen und was ich digitalisiere">
   <p class="eyebrow">Für wen ich digitalisiere</p>
   <div class="band-spur"><div class="band-zeile" data-band="Handwerk|Pflegedienste|Betreuungsdienste|Kfz-Betriebe|Dienstleister|Hersteller|Maschinenbau"></div></div>
-  <p class="eyebrow band-zweit">Meine Digitalisierungstools</p>
-  <div class="band-spur"><div class="band-zeile rueck" data-band="HTML|CSS|JavaScript|React|Next.js|Node.js|WordPress|Docker|Hetzner|Figma|Adobe XD|Fusion 360|FreeCAD|Blender|Photoshop|Illustrator|InDesign|After Effects|Premiere Pro"></div></div>
+  <p class="eyebrow band-zweit">Was ich digitalisiere</p>
+  <div class="band-spur"><div class="band-zeile rueck" data-band="Aufträge|Termine|Stundenzettel|Angebote|E-Rechnungen|Leistungsnachweise|Einsatzpläne|Websites|Produktbilder"></div></div>
 </section>
 
-<section class="section dunkel-block" id="zeitersparnis"><div class="wrap navy-raster">
-  <div class="spalte" style="max-width:34rem" data-zeigen>
-    <span class="pixel-lebt"><svg width="84" height="65.52" viewBox="585 280 82 76" aria-hidden="true" style="display:block;overflow:visible"><g fill="#00df3a">
-      <rect x="588.67" y="282.82" width="15.62" height="15.62" rx="3.07" opacity="0.55"/><rect x="600.48" y="309.09" width="23.03" height="23.03" rx="3.07" opacity="0.8"/>
-      <rect x="633.57" y="335.36" width="17.71" height="17.71" rx="3.07" opacity="0.65"/><rect x="640.05" y="301.45" width="21.29" height="21.29" rx="3.07"/>
-      <rect x="618.99" y="285.36" width="13.31" height="13.31" rx="3.33" opacity="0.45"/></g></svg></span>
-    <h2 class="h2">Wachstum braucht heute <span class="verlauf-text">Digitalisierung.</span></h2>
-    <p class="lede">Nicht weil es modern ist, sondern weil Ihre Zeit woanders besser aufgehoben ist als in Listen, die jemand von Hand pflegt. Was ein System übernehmen kann, soll ein System übernehmen.</p>
-    <div class="btn-row" style="margin-top:0"><a class="btn hohl" href="#kontakt">Darüber sprechen</a></div>
-  </div>
-  <div class="rechner" data-zeigen style="transition-delay:120ms">
-    <p class="eyebrow">Rechnen Sie selbst</p>
-    <h3 class="h3">Wie viel Zeit geht bei Ihnen jeden Tag für Abtippen, Ablegen und Suchen in Ordnern und Akten drauf?</h3>
-    <div class="r-wahl" role="radiogroup" aria-label="Zeit pro Tag">
-      <button type="button" role="radio" aria-checked="false" data-h="1">1 Stunde</button>
-      <button type="button" role="radio" aria-checked="true" data-h="2">2 Stunden</button>
-      <button type="button" role="radio" aria-checked="false" data-h="3">3 Stunden</button>
-      <button type="button" role="radio" aria-checked="false" data-h="4">4 Stunden und mehr</button>
-    </div>
-    <p class="r-basis">Pro Stunde Papierkram sparen Sie mit einem passenden System rund <b>24 Minuten</b>.</p>
-    <div class="r-ergebnis" aria-live="polite">
-      <p class="r-vor">Sie gewinnen</p>
-      <p class="r-zahl"><strong data-r="tag">48 Min.</strong> <span>jeden Tag</span></p>
-      <p class="r-jahr">Im Jahr sind das rund <b data-r="jahr">5 Arbeitswochen</b>.</p>
-    </div>
-    <p class="r-hinweis">Beispielrechnung, keine Garantie. Grundlage: rund 24 Minuten pro Stunde Papierkram, 230 Arbeitstage im Jahr, 40 Stunden pro Woche.</p>
-  </div>
-</div></section>
-
-<section class="section" id="ueber-mich"><div class="wrap ueber-raster">
-  <div class="spalte" data-zeigen>
+<section class="section" id="ueber-mich"><div class="wrap ueber-mit-foto">
+  <figure class="ueber-foto" data-zeigen>
+    <canvas class="ueber-netz" aria-hidden="true"></canvas>
+    <img src="assets/tahsin-sw.webp" alt="Tahsin Özçiçek, Gründer von bloomlogic" width="720" height="1261" loading="lazy" decoding="async">
+    <figcaption><b>Tahsin Özçiçek</b><span>Gründer von bloomlogic<span class="ort"><i aria-hidden="true"> · </i>Braunschweig</span></span></figcaption>
+  </figure>
+  <div class="spalte ueber-text" data-zeigen>
     <div class="kopfzeile" style="margin-bottom:0">
       <p class="eyebrow">Über mich</p>
       <h2 class="h2">Sie sprechen mit dem, der es baut</h2>
     </div>
-    <p class="lede">Über 15 Jahre Branchenerfahrung in IT und Design.</p>
-    <p class="body">Ich habe ein Auge dafür, was gut aussieht, und das Wissen, wie es dahinter funktioniert. Gestaltung, 3D und Video gehören dazu, genauso wie Websites, automatisierte Abläufe und der eigene Server.</p>
-    <p class="body">In diesen 15 Jahren habe ich für große Konzerne und Digitalisierungsunternehmen gearbeitet: Projekte geplant, Termine gehalten, sauber dokumentiert und technische Stammdaten gepflegt. Darauf aufbauend bringe ich diese Arbeitsweise heute in Betriebe, ohne den Konzern-Aufwand.</p>
+    <p class="lede">Ich bin Tahsin Özçiçek. Ich komme aus dem Design, habe viele 3D-Projekte betreut und mich über die Jahre immer tiefer in die IT hineingearbeitet.</p>
+    <p class="body">In über 15 Jahren habe ich mit Betrieben aus ganz unterschiedlichen Branchen gearbeitet. Ich saß mit Designern, 3D-Spezialisten, IT-Leuten und Projektleitern an einem Tisch und weiß, wie jeder von ihnen denkt und was es braucht, damit ein Projekt gelingt.</p>
+    <p class="body">Diese Erfahrung bündle ich heute für Ihren Betrieb: ein Auge für gute Gestaltung, das Verständnis für die Technik dahinter und die Sorgfalt, ein Projekt sauber zu planen und zu Ende zu bringen.</p>
+    <p class="body">Und wenn ein Projekt mehr braucht, als einer allein leisten kann, greife ich auf ein Netzwerk aus erfahrenen Partnern zurück, aus Design, 3D, IT und Projektmanagement. Für Sie ändert sich dadurch nichts: Sie haben einen Ansprechpartner, der den Überblick behält und auch dann noch da ist, wenn Ihr System läuft.</p>
   </div>
-  <div class="expertise" data-zeigen style="transition-delay:120ms">
-    <p class="exp-titel">Dafür spricht meine Expertise in diesen Bereichen:</p>
-    <div class="exp-raster">
-      <div><h3 class="h3">Planung und Projekte</h3><p class="body">Klare Meilensteine, regelmäßige Statusberichte, saubere Dokumentation. Sie wissen jederzeit, wo Ihr Projekt steht.</p></div>
-      <div><h3 class="h3">Technik und Automatisierung</h3><p class="body">Websites mit HTML, CSS, JavaScript und WordPress. Automatisierte Abläufe mit n8n, Schnittstellen zwischen Ihren Programmen, DSGVO-konformes Hosting mit Docker.</p></div>
-      <div><h3 class="h3">Gestaltung, UI und 3D</h3><p class="body">UI- und UX-Design mit Figma und Adobe XD: Oberflächen, die man gern benutzt. Dazu Photoshop, Illustrator und InDesign, 3D-Visualisierung aus CAD-Daten und Videoschnitt.</p></div>
-      <div><h3 class="h3">Ihre Daten und Ihre Werkzeuge</h3><p class="body">Excel bis Pivot und SVERWEIS, Teams, SharePoint und OneNote. Ich arbeite mit dem, was Sie schon haben, und bringe Ordnung in Ihre Daten.</p></div>
-    </div>
-  </div>
-</div></section>
-
-<section class="section sunk" id="versprechen"><div class="wrap">
-  <div class="kopfzeile">
-    <p class="eyebrow">Mein Versprechen</p>
-    <h2 class="h2">Ihre Daten gehören Ihnen</h2>
-    <p class="body">Ich nutze Ihre Daten für nichts anderes als Ihr System. Die Kontrolle bleibt jederzeit bei Ihnen.</p>
-  </div>
-  <ul class="cards schritte drei">
-    <li class="card" data-zeigen style="transition-delay:0ms"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect pathLength="1" x="5" y="10.5" width="14" height="10" rx="2"/><path pathLength="1" d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path pathLength="1" d="M12 14.5v2.5"/></svg></span><h3 class="h3">Volle Kontrolle</h3>
-      <p class="body">Ich werte nichts aus und verkaufe nichts. Ihre Daten dienen nur Ihrem Betrieb.</p></li>
-    <li class="card" data-zeigen style="transition-delay:90ms"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect pathLength="1" x="3.5" y="4" width="17" height="6.5" rx="1.5"/><rect pathLength="1" x="3.5" y="13.5" width="17" height="6.5" rx="1.5"/><path pathLength="1" d="M7 7.25h.01M7 16.75h.01M11 7.25h6M11 16.75h6"/></svg></span><h3 class="h3">DSGVO-konform</h3>
-      <p class="body">Hosting bei Hetzner auf Servern in Deutschland, mit regelmäßigen Sicherungen.</p></li>
-    <li class="card" data-zeigen style="transition-delay:180ms"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path pathLength="1" d="M12 3.5v11"/><path pathLength="1" d="M7.5 10l4.5 4.5 4.5-4.5"/><path pathLength="1" d="M4 15.5v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span><h3 class="h3">Keine Abhängigkeit</h3>
-      <p class="body">Sie bekommen Ihre Daten jederzeit vollständig heraus. Ohne Wenn und Aber.</p></li>
+  <ul class="ueber-zahlen" aria-label="Eckdaten">
+    <li data-zeigen style="transition-delay:0ms"><b><span data-zahl="15">15</span>+</b><span>Jahre Erfahrung</span></li>
+    <li data-zeigen style="transition-delay:70ms"><b><span data-zahl="100">100</span>+</b><span>abgeschlossene Projekte</span></li>
+    <li data-zeigen style="transition-delay:140ms"><b><span data-zahl="3">3</span></b><span>Disziplinen: Design, 3D und IT</span></li>
+    <li data-zeigen style="transition-delay:210ms"><b>1</b><span>Ansprechpartner, dahinter ein ganzes Netzwerk</span></li>
   </ul>
+  <div class="versprechen-karte" data-zeigen>
+    <p class="eyebrow">Mein Versprechen</p>
+    <h3 class="h3">Ihre Daten gehören Ihnen</h3>
+    <ul>
+      <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg></span>
+        <div><b>Volle Kontrolle</b><p>Ich werte nichts aus und verkaufe nichts. Ihre Daten dienen nur Ihrem Betrieb.</p></div></li>
+      <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="6.5" rx="1.5"/><rect x="3.5" y="13.5" width="17" height="6.5" rx="1.5"/><path d="M7 7.25h.01M7 16.75h.01M11 7.25h6M11 16.75h6"/></svg></span>
+        <div><b>DSGVO-konform</b><p>Ihre Daten liegen auf Servern in Deutschland und werden regelmäßig gesichert.</p></div></li>
+      <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.5v11"/><path d="M7.5 10l4.5 4.5 4.5-4.5"/><path d="M4 15.5v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>
+        <div><b>Keine Abhängigkeit</b><p>Sie bekommen Ihre Daten jederzeit vollständig heraus. Ohne Wenn und Aber.</p></div></li>
+    </ul>
+  </div>
 </div></section>
 
 <section class="section" id="fragen"><div class="wrap faq-raster">
@@ -973,7 +932,7 @@
     <details><summary>Muss ich meine bisherigen Daten abtippen?<i></i></summary><p>Nein. Kundenlisten, Excel-Tabellen und vorhandene Daten übernehme ich in das neue System.</p></details>
     <details><summary>Für welche Region arbeiten Sie?<i></i></summary><p>Für Betriebe in Braunschweig und Umgebung, also Wolfenbüttel, Salzgitter, Peine, Gifhorn, Helmstedt und Hannover, und darüber hinaus in ganz Niedersachsen. Vieles lässt sich auch per Video klären.</p></details>
     <details><summary>Läuft das auch auf dem Handy?<i></i></summary><p>Ja. Ihre Anwendung läuft im Browser, auf dem Handy, dem Tablet und am PC. Ohne Installation aus dem App Store.</p></details>
-    <details><summary>Ist das DSGVO-konform?<i></i></summary><p>Ja. Ich baue Ihr System von Anfang an DSGVO-konform. Ihre Daten liegen bei Hetzner auf Servern in Deutschland, werden regelmäßig gesichert und nur für Ihren Betrieb verwendet. Die Kontrolle über Ihre Daten bleibt jederzeit bei Ihnen.</p></details>
+    <details><summary>Ist das DSGVO-konform?<i></i></summary><p>Ja. Ich baue Ihr System von Anfang an DSGVO-konform. Ihre Daten liegen bei einem Anbieter in Deutschland, zum Beispiel Hetzner, werden regelmäßig gesichert und nur für Ihren Betrieb verwendet. Die Kontrolle über Ihre Daten bleibt jederzeit bei Ihnen.</p></details>
     <details><summary>Muss meine Website barrierefrei sein?<i></i></summary><p>Seit Juni 2025 gilt das Barrierefreiheitsstärkungsgesetz (BFSG) für bestimmte Angebote, etwa wenn Kunden online Verträge abschließen oder buchen. Kleinstunternehmen sind bei Dienstleistungen oft ausgenommen. Ich prüfe mit Ihnen, ob es Sie betrifft, und baue Ihre Website auf Wunsch barrierefrei.</p></details>
     <details><summary>Brauche ich eine eigene IT-Abteilung?<i></i></summary><p>Nein. Genau dafür bin ich da: für Betriebe, die wachsen wollen, aber keine IT-Abteilung haben.</p></details>
     <details><summary>Wann sehe ich das erste Ergebnis?<i></i></summary><p>Früh. Sie sehen nach den ersten Abschnitten etwas Lauffähiges und können mitreden, nicht erst am Ende.</p></details>
@@ -986,6 +945,10 @@
     <p class="eyebrow">Kontakt</p>
     <h2 class="h2">Lass uns reden</h2>
     <p class="lede">Eine halbe Stunde, kostenlos und unverbindlich. Sie erzählen, wo es klemmt, und bekommen eine ehrliche Einschätzung, was sich lohnt und was nicht. Der erste Schritt ist eine kurze Nachricht.</p>
+    <div class="direkt">
+      <a href="tel:+4915120788220"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM10.5 18h3"/></svg>0151 207 88 220</a>
+      <a href="mailto:info@bloomlogic.de"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg>info@bloomlogic.de</a>
+    </div>
   </div>
   <form class="kontakt-form" data-zeigen novalidate>
     <div class="kf-zeile">
@@ -1000,7 +963,6 @@
     <label class="kf-falle" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
     <label class="kf-check"><input type="checkbox" name="einwilligung" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden. Mehr dazu in der <a href="/datenschutz">Datenschutzerklärung</a>.</span></label>
     <div class="kf-fuss"><button class="btn primaer" type="submit">Nachricht senden</button><p class="kf-status" role="status" aria-live="polite"></p></div>
-    <p class="klein">Lieber direkt? <a href="mailto:kontakt@bloomlogic.de">kontakt@bloomlogic.de</a> · bloomlogic · Braunschweig</p>
   </form>
   <div class="kontakt-chat" data-zeigen aria-hidden="true">
     <div class="mini-chat">
@@ -1024,7 +986,7 @@
 <hr class="linie">
 <footer><div class="wrap fuss">
   <div class="marke"><img class="nur-hell" src="assets/logo-kopf.svg" alt="bloomlogic: Digitales Wachstum mit Logik" width="62" height="50"><img class="nur-dunkel" src="assets/logo-kopf-dunkel.svg" alt="" aria-hidden="true" width="62" height="50"><span>© 2026 bloomlogic</span></div>
-  <nav aria-label="Leistungen"><a href="software-handwerk-pflege/">Software</a><a href="website-braunschweig/">Websites</a><a href="3d-visualisierung-cad/">3D-Visualisierung</a><a href="hosting-betreuung/">Hosting und Betreuung</a></nav>
+  <nav aria-label="Leistungen"><a href="software-handwerk-pflege/">Software</a><a href="website-braunschweig/">Websites</a><a href="3d-visualisierung-cad/">3D-Visualisierung</a></nav>
   <nav aria-label="Rechtliches"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><a href="#kontakt">Kontakt</a></nav>
 </div></footer>
 </main>
@@ -1066,11 +1028,44 @@
   var DAEMPFUNG = 0.12;
   /* ?test: schnelle Testbilder (640 x 360), ?dunkel: dunkle Version (Raum dunkel, Schrift und Logo hell).
      Ordner: frames, frames_test, frames_dunkel, frames_dunkel_test */
-  var DUNKEL = /[?&]dunkel\b/.test(location.search), TEST = /[?&]test\b/.test(location.search);
+  /* Dunkel per ?dunkel oder gemerkter Wahl (bl-dunkel, gilt auch fuer die Unterseiten) */
+  var GEMERKT = false; try { GEMERKT = localStorage.getItem('bl-dunkel') === '1'; } catch (e) {}
+  var DUNKEL = /[?&]dunkel\b/.test(location.search) || GEMERKT, TEST = /[?&]test\b/.test(location.search);
   if (DUNKEL) document.documentElement.classList.add('dunkel');
   /* Hochformat (Smartphone): eigene Bildserie im Format 9:16 (blender/hochformat.py). Wechselt das Geraet die
      Ausrichtung, wird neu geladen, damit die passende Serie kommt. */
   var hochMQ = window.matchMedia('(max-aspect-ratio: 1/1)'), HOCH = hochMQ.matches;
+  /* ---- Kurzfassung (2026-10-08): weniger Scrollen fuer denselben Film ----------------------------------------
+     Der Film und alle Stellen oben bleiben unveraendert. Gerafft wird nur, wie viel Scrollen ein Abschnitt kostet
+     (RAFFUNG, 1 = wie bisher), darueber ein Gesamttempo (TEMPO, Handy staerker). Akt 2 und 3 (Schreibtisch, Zettel
+     werden Daten) bleiben ungerafft. Zum Vergleichen: ?lang zeigt die alte Langfassung, ?tempo=0.5 setzt das Tempo. */
+  var LANG = /[?&]lang(=|&|$)/.test(location.search);
+  var TEMPO_WUNSCH = parseFloat((location.search.match(/[?&]tempo=([0-9.]+)/) || [])[1]);
+  var TEMPO = LANG ? 1 : TEMPO_WUNSCH >= 0.2 && TEMPO_WUNSCH <= 1 ? TEMPO_WUNSCH
+            : (HOCH || window.matchMedia('(pointer: coarse)').matches ? 0.45 : 0.65);
+  var RAFFUNG = LANG ? [] : [
+    [0, VH_AKT1, 0.65],                       /* Akt 1: Blume */
+    [VH_DOKU_START, VH_DOKU_ENDE, 0.7],       /* Rundgang durch die Doku-Software */
+    [VH_DOKU_ENDE, VH_HALT_START, 0.75],      /* Akt 4: Bremse */
+    [VH_HALT_START, VH_HALT_ENDE, 0.6],       /* Halt auf der Explosionsansicht */
+    [VH_HALT_ENDE, VH_FILM, 0.85],            /* Akt 5: Handy und Totale */
+    [VH_FILM, VH_ENDE, 0.6]                   /* Schluss: das Logo baut sich auf */
+  ];
+  /* Teile [Film von, Film bis, Faktor, Beginn in der Scroll-Strecke]; laenge = Scroll-Strecke ab -VH_VOR in vh */
+  var KARTE = (function () {
+    var teile = [], pos = -VH_VOR, s = -VH_VOR;
+    RAFFUNG.forEach(function (r) { if (r[0] > pos) teile.push([pos, r[0], 1]); teile.push(r.slice()); pos = r[1]; });
+    if (pos < VH_ENDE) teile.push([pos, VH_ENDE, 1]);
+    teile.forEach(function (t) { t.push(s); s += (t[1] - t[0]) * t[2]; });
+    return { teile: teile, laenge: s + VH_VOR };
+  })();
+  /* Stelle in der (gerafften) Scroll-Strecke -> Stelle im Film */
+  function filmStelle(s) {
+    var t = KARTE.teile;
+    for (var i = 0; i < t.length; i++) {
+      if (i === t.length - 1 || s < t[i][3] + (t[i][1] - t[i][0]) * t[i][2]) return t[i][0] + (s - t[i][3]) / t[i][2];
+    }
+  }
   if (HOCH) document.documentElement.classList.add('hoch');
   hochMQ.addEventListener('change', function () { location.reload(); });
   /* Bildstand: nach neuem Rendern hochzaehlen, sonst zeigt der Browser bis zu einen Tag lang die alten Bilder */
@@ -1122,7 +1117,7 @@
       klein: 'Für Smartphones gebaut und optimiert. Im Büro, unterwegs oder beim Kunden.', kleinEin: [V(583), V(605)], aus: [V(616), V(626)] },
     { zeilen: ['Alles aus', 'einer Logik.'], fx: 'steigen', pos: 'oben', halo: true, tafel: true, ein: [V(633), V(653)],
       klein: '*Software: Individuelle Software · Web-Apps · Automatisierung · Schnittstellen\n' +
-             '*Web: Webdesign · Webentwicklung · SEO · Hosting und Wartung\n' +
+             '*Web: Webdesign · Webentwicklung · SEO · Wartung\n' +
              '*3D *und *CAD: Produktfotos · Renderings · Architektur · Animationen · Erklärvideos\n' +
              '*Beratung: Digitalisierung · Einweisung · Betreuung\nEin Ansprechpartner.',
       kleinEin: [V(648), V(668)], aus: [VH_FILM - 30, VH_FILM + 40] }
@@ -1929,7 +1924,7 @@
   /* Auftakt: Zeilen steigen beim Laden herein (introK), beim ersten Scrollen nach oben heraus; das Samenkorn
      faellt dabei auf die Stelle, an der der Staengel durch die Plattform bricht, und geht in ihr auf */
   var auft = document.getElementById('auftakt'), auftZ = Array.prototype.slice.call(auft.querySelectorAll('.zeile > span'));
-  var auftOrt = auft.querySelector('.ort'), auftP = auft.querySelector('p'), korn = auft.querySelector('.korn'), kornBasis = null;
+  var auftOrt = auft.querySelector('.ort'), auftP = auft.querySelector('p'), auftWas = auft.querySelector('.was'), korn = auft.querySelector('.korn'), kornBasis = null;
   var auftB = Array.prototype.slice.call(auft.querySelectorAll('.blatt'));
   /* Beim Scrollen kommen weitere Blaetter vom Rand und wirbeln in einer Spirale ins Samenkorn */
   var EXTRA_N = HOCH ? 18 : 32, auftX = [];
@@ -1964,6 +1959,8 @@
     auftP.style.opacity = eout(seg(introK, 0.55, 1)) * (1 - seg(raus, 0, 0.5));
     auftOrt.style.opacity = eout(seg(introK, 0.05, 0.5)) * (1 - seg(raus, 0, 0.4));
     auftP.style.transform = 'translateY(' + (-12 * seg(raus, 0, 0.5)) + 'px)';
+    auftWas.style.opacity = eout(seg(introK, 0.68, 1)) * (1 - seg(raus, 0, 0.45));
+    auftWas.style.transform = 'translateY(' + (-12 * seg(raus, 0, 0.45)) + 'px)';
     /* Samenkorn: erscheint mit dem Text, faellt beim Scrollen mit leichter Drehung auf die Plattform (Landung mit
        kurzem Stauchen), sinkt dann in die Mitte, wo der Staengel durchbricht; dort ein Impuls (Druckwellen, Funken) */
     if (!kornBasis) { korn.style.transform = 'none'; var r0 = korn.getBoundingClientRect(); kornBasis = { x: r0.left + r0.width / 2, y: r0.top + r0.height / 2 }; }
@@ -2021,7 +2018,7 @@
   function rendern(p) {
     if (!W || !H) return;   /* Buehne noch ohne Groesse (z. B. Neuladen mitten auf der Seite): erst nach einpassen() zeichnen */
     ctx.fillStyle = '#05070d'; ctx.fillRect(0, 0, W, H);
-    var v = p * (VH_ENDE + VH_VOR) - VH_VOR, info;
+    var v = filmStelle(p * KARTE.laenge - VH_VOR), info;
     if (v < VH_FILM) schluss.style.visibility = 'hidden';
     if (v <= VH_AKT1) {
       var f = Math.max(1, Math.round(1 + (v / VH_AKT1) * (AKT1_ENDE - 1)));
@@ -2092,7 +2089,7 @@
   nochmalKnopf.addEventListener('click', function () {
     abgespielt = false; clearTimeout(endeUhr);
     document.documentElement.classList.remove('abgespielt'); nochmalKnopf.tabIndex = -1; nochmalKnopf.blur();
-    strecke.style.height = (VH_ENDE + VH_VOR + 100) + 'vh';
+    strecke.style.height = (KARTE.laenge * TEMPO + 100) + 'vh';
     window.scrollTo(0, 0);
     kornBasis = null; ziel = ist = fortschritt(); intro();
   });
@@ -2116,7 +2113,8 @@
     }
     try { sessionStorage.setItem('bl-lage', JSON.stringify(lage)); } catch (e) {}
     var q = new URLSearchParams(location.search);
-    if (q.has('dunkel')) q.delete('dunkel'); else q.set('dunkel', '');
+    if (DUNKEL) q.delete('dunkel'); else q.set('dunkel', '');
+    try { if (DUNKEL) localStorage.removeItem('bl-dunkel'); else localStorage.setItem('bl-dunkel', '1'); } catch (e) {}
     var such = q.toString().replace(/=(&|$)/g, '$1');
     location.replace(location.pathname + (such ? '?' + such : '') + location.hash);
   });
@@ -2133,7 +2131,7 @@
     })(t0);
   }
 
-  if (!sparsam) document.getElementById('strecke').style.height = (VH_ENDE + VH_VOR + 100) + 'vh';
+  if (!sparsam) document.getElementById('strecke').style.height = (KARTE.laenge * TEMPO + 100) + 'vh';
   /* Stelle nach dem Hell/Dunkel-Wechsel wiederherstellen (siehe Schalter oben); nach dem Laden der Schrift noch
      einmal, falls sich die Abschnitte dadurch verschoben haben */
   var gemerkt = null;

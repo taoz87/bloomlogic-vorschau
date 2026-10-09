@@ -113,7 +113,7 @@ html.dunkel #seite { --bg:#080B12; --surface:#111722; --sunk:#0C1119; --ink:#EEF
   #seite .fuss nav[aria-label="Rechtliches"] { grid-area:recht; }
 }
 @media (min-width:76rem) { #seite .fuss { grid-template-columns:1fr auto auto; grid-template-areas:"marke leist recht"; } }
-/* Banderole nach dem Hero: Technik (gross) und Branchen (leise), laufen gegeneinander, halten bei Maus darueber */
+/* Banderole "Fuer wen ich digitalisiere": laeuft endlos, haelt bei Maus darueber (.rueck: zweite, leise Zeile) */
 #seite .band { padding-block:clamp(2.2rem, 5vw, 3.4rem); overflow:hidden; border-bottom:1px solid var(--rule-soft); }
 #seite .band .eyebrow { text-align:center; margin-bottom:1.3rem; }
 #seite .band-spur { overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
@@ -278,30 +278,10 @@ html.dunkel #seite .alltag-kopf .mit { color:#3EE06B; }
 @media (max-width:40rem) { #seite .alltag { gap:1.6rem; } #seite .alltag li { grid-template-columns:1fr; gap:0.75rem; } #seite .alltag .nachher { margin-left:0.6rem; } }
 @media (prefers-reduced-motion: reduce) { #seite .alltag .nachher { opacity:1; transform:none; } }
 
-/* Branchen-Reiter */
-#seite .reiter-leiste { position:relative; display:flex; gap:0.3rem; overflow-x:auto; scrollbar-width:none; border-bottom:1px solid var(--rule); }
-#seite .reiter-leiste::-webkit-scrollbar { display:none; }
-#seite .reiter-leiste button { flex:none; padding:0.8rem 1.1rem; border:0; background:none; font:inherit; font-weight:500; color:var(--soft);
-                               cursor:pointer; transition:color .2s; }
-#seite .reiter-leiste button[aria-selected="true"] { color:var(--ink); }
-#seite .reiter-leiste button:hover { color:var(--ink); }
-#seite .reiter-strich { position:absolute; left:0; bottom:-1px; height:3px; width:0; border-radius:2px; background:var(--verlauf);
-                        transition:transform .45s cubic-bezier(.2,.8,.2,1), width .45s cubic-bezier(.2,.8,.2,1); }
-#seite .br-feld { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 0.9fr); gap:2rem; padding-top:2rem;
-                  animation:brRein .45s cubic-bezier(.2,.8,.2,1); }
-#seite .br-feld[hidden] { display:none; }
-@keyframes brRein { from { opacity:0; transform:translateY(8px); } }
-#seite .br-feld .h3 { font-size:1rem; margin-bottom:0.8rem; }
-#seite .br-liste { list-style:none; display:grid; gap:0.65rem; }
-#seite .br-liste li { display:flex; gap:0.6rem; align-items:flex-start; color:var(--ink); }
-#seite .br-liste li svg { width:18px; height:18px; flex:none; margin-top:0.2em; stroke:#10B48C; fill:none; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
-#seite .br-liste.typisch li { color:var(--soft); }
-#seite .br-liste.typisch li::before { content:""; width:6px; height:6px; margin-top:0.62em; border-radius:50%; background:var(--faint); opacity:.6; flex:none; }
 #seite .br-bsp { align-self:start; display:grid; gap:0.6rem; padding:1.4rem; border-radius:14px; background:#E6F7EF; border:1px solid #CDEEDD; }
 html.dunkel #seite .br-bsp { background:#0E2A22; border-color:#174536; }
 #seite .br-bsp p:not(.eyebrow) { color:var(--ink); font-size:0.95rem; }
 #seite .br-bsp a { font-weight:500; font-size:0.9rem; color:var(--accent); text-underline-offset:3px; }
-@media (max-width:52rem) { #seite .br-feld { grid-template-columns:1fr; gap:1.5rem; } }
 
 #seite .schritte.drei { grid-template-columns:repeat(3, minmax(0, 1fr)); }
 @media (max-width:52rem) { #seite .schritte.drei { grid-template-columns:1fr; } }
@@ -326,17 +306,9 @@ html.dunkel #seite .ic .deckt { fill:#0E2A22; }
 #seite .schritte-cta { display:flex; flex-wrap:wrap; align-items:center; gap:0.8rem 1.4rem; margin-top:2rem; }
 #seite .schritte-cta span { color:var(--faint); font-size:0.9rem; }
 @media (prefers-reduced-motion: reduce) { #seite .schritte .ic svg > * { animation:none !important; stroke-dasharray:none !important; } }
-/* Ueber mich: Text links, Eckdaten rechts (Zahlen zaehlen beim Hereinscrollen hoch) */
+/* Ueber mich: Text links, rechts die Karte "Mein Versprechen" */
 #seite .ueber-raster { display:grid; gap:clamp(2rem, 5vw, 4rem); }
 @media (min-width:52rem) { #seite .ueber-raster { grid-template-columns:minmax(0, 1.15fr) minmax(0, 0.85fr); align-items:center; } }
-#seite .exp-titel { font-weight:500; margin-bottom:0.9rem; }
-#seite .exp-raster { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule); border:1px solid var(--rule);
-                     border-radius:16px; overflow:hidden; }
-#seite .exp-raster > div { display:grid; align-content:start; gap:0.5rem; padding:1.4rem 1.3rem; background:var(--surface); }
-#seite .exp-raster .h3 { display:flex; align-items:center; gap:0.6rem; font-size:1.05rem; }
-#seite .exp-raster .h3::before { content:""; width:9px; height:9px; border-radius:2px; background:var(--verlauf); flex:none; }
-#seite .exp-raster .body { font-size:0.9rem; line-height:1.55; }
-@media (max-width:36rem) { #seite .exp-raster { grid-template-columns:1fr; } }
 /* FAQ */
 #seite .faq-raster { display:grid; gap:clamp(1.5rem, 4vw, 4rem); }
 @media (min-width:52rem) { #seite .faq-raster { grid-template-columns:minmax(0, 0.8fr) minmax(0, 1.2fr); align-items:start; } }
@@ -598,14 +570,6 @@ html.dunkel #seite .fliessband { background:linear-gradient(rgba(8,11,18,.38), r
   #kopf .btn { padding:0.5rem 0.75rem; font-size:0.8rem; }
   #kopf .menue { flex:none; width:38px; height:38px; }
 }
-/* Branchen-Reiter: am Handy als 2 x 2 Raster statt seitlich wischen */
-@media (max-width:40rem) {
-  #seite .reiter-leiste { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; overflow:visible; border-bottom:0; }
-  #seite .reiter-leiste button { padding:0.7rem 0.6rem; border:1px solid var(--rule); border-radius:10px; text-align:center;
-                                 white-space:normal; line-height:1.3; }
-  #seite .reiter-leiste button[aria-selected="true"] { background:#E6F7EF; border-color:#10B48C; }
-  html.dunkel #seite .reiter-leiste button[aria-selected="true"] { background:#0E2A22; border-color:#174536; }
-  #seite .reiter-strich { display:none; }
 }
 /* Footer am Handy: Leistungen als saubere Liste, Rechtliches darunter abgesetzt */
 @media (max-width:51.99rem) {
@@ -634,3 +598,156 @@ html.dunkel #seite .fb-marke small { color:#A8B4C6; }
 
 /* Ausserhalb des Bildschirms ruhen alle CSS-Animationen (seite.js setzt .ruht) */
 #seite .ruht, #seite .ruht * { animation-play-state:paused !important; }
+
+/* ---- Umbau 2026-10-08 ------------------------------------------------------------------------------------- */
+/* Zeit-Rechner als dunkle Tafel direkt unter dem Fliessband (frueher eigener Abschnitt) */
+#seite .rechner-block { margin-top:clamp(2.5rem, 6vw, 4.5rem); padding:clamp(1.25rem, 4.5vw, 3.25rem); border-radius:24px; scroll-margin-top:var(--kopf); }
+@media (max-width:36rem) { #seite .rechner-block { margin-inline:-0.5rem; } #seite .rechner-block .rechner { padding:1.1rem; } }
+
+/* Ueber mich: Mein Versprechen als Karte mit drei Zusagen */
+#seite .versprechen-karte { display:grid; gap:0.9rem; padding:clamp(1.4rem, 3vw, 2rem); border-radius:18px; background:var(--surface);
+                            border:1px solid var(--rule); box-shadow:0 1px 2px rgba(0,0,51,.04), 0 14px 36px rgba(0,0,51,.06); }
+#seite .versprechen-karte .h3 { font-size:1.3rem; }
+#seite .versprechen-karte ul { list-style:none; display:grid; gap:1.1rem; margin-top:0.4rem; }
+#seite .versprechen-karte li { display:flex; gap:1rem; align-items:flex-start; }
+#seite .versprechen-karte .ic { width:44px; height:44px; margin:0; border-radius:12px; flex:none; }
+#seite .versprechen-karte .ic svg { width:24px; height:24px; }
+#seite .versprechen-karte b { display:block; font-weight:600; color:var(--ink); margin-bottom:0.15rem; }
+#seite .versprechen-karte li p { color:var(--soft); font-size:0.95rem; line-height:1.55; }
+html.dunkel #seite .versprechen-karte .ic { background:#0E2A22; }
+
+/* Kontakt: Telefon und E-Mail direkt unter dem Einleitungstext */
+#seite .direkt { display:flex; flex-wrap:wrap; gap:0.7rem 1.8rem; }
+#seite .direkt a { display:inline-flex; align-items:center; gap:0.6rem; font-size:1.08rem; font-weight:500; color:var(--ink); text-decoration:none; }
+#seite .direkt a:hover { color:var(--accent); }
+#seite .direkt svg { width:22px; height:22px; flex:none; fill:none; stroke:var(--accent); stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ---- Leistungen 2026-10-09: vier gleich aufgebaute Karten statt Bento mit Vorschauen ---------------------------- */
+#seite .leistungen-raster { display:grid; gap:1rem; grid-template-columns:1fr; }
+@media (min-width:56rem) { #seite .leistungen-raster { grid-template-columns:repeat(3, minmax(0, 1fr)); } }
+#seite .lk { gap:0.85rem; padding:clamp(1.4rem, 3vw, 2rem); }
+#seite .lk .ic { margin:0 0 0.15rem; }
+#seite .lk .h3 { font-size:1.35rem; }
+#seite .lk-fuer { margin-top:auto; padding-top:0.3rem; font-size:0.85rem; font-weight:500; color:var(--faint); }
+#seite .lk-fuss { display:flex; flex-wrap:wrap; align-items:center; gap:0.6rem 1.2rem; }
+#seite .lk-bsp { position:relative; z-index:2; font-size:0.875rem; font-weight:500; color:var(--accent); text-underline-offset:3px; }
+#seite #leistungen .anstoss { margin-top:1.5rem; }
+
+/* ---- Referenzen 2026-10-09: Betreuungsvoll gross, darunter Websites als Handyansicht vor der Kundenfarbe ------- */
+#seite .ref-haupt { display:grid; gap:clamp(1.5rem, 4vw, 3rem); align-items:center; padding:clamp(1.25rem, 3.5vw, 2.5rem);
+                    background:var(--surface); border:1px solid var(--rule); border-radius:20px; }
+@media (min-width:60rem) { #seite .ref-haupt { grid-template-columns:minmax(0, 1.4fr) minmax(0, 1fr); } }
+#seite .ref-bild { position:relative; padding:0 clamp(1.5rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3rem) 0; }
+#seite .ref-rechner { display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--rule); box-shadow:0 14px 36px rgba(0,0,51,.12); }
+#seite .ref-text { display:grid; gap:0.9rem; align-content:start; }
+#seite .ref-text .h3 { font-size:clamp(1.35rem, 2.6vw, 1.75rem); }
+#seite .ref-merkmale { display:flex; flex-wrap:wrap; gap:0.45rem; list-style:none; }
+#seite .ref-merkmale li { padding:0.35rem 0.75rem; border-radius:999px; background:#E6F7EF; color:#0B5F43; font-size:0.85rem; font-weight:500; }
+html.dunkel #seite .ref-merkmale li { background:#0E2A22; color:#9FE9C8; }
+#seite .ref-links { display:flex; flex-wrap:wrap; gap:0.7rem; margin-top:0.3rem; }
+#seite .ref-raster { display:grid; gap:1rem; grid-template-columns:repeat(2, minmax(0, 1fr)); margin-top:1rem; }
+@media (max-width:52rem) { #seite .ref-raster { grid-template-columns:1fr; } }
+#seite .ref-karte { display:flex; flex-direction:column; gap:0.6rem; padding-bottom:1.5rem; overflow:hidden;
+                    background:var(--surface); border:1px solid var(--rule); border-radius:16px; }
+#seite .ref-karte > :not(.ref-geraetefeld) { margin-inline:1.5rem; }
+/* Rechner-Ansicht oben links, das Handy davor rechts, auf der Kundenfarbe (Klassen geraet-*, .rechner ist der Zeit-Rechner) */
+#seite .ref-geraetefeld { position:relative; height:clamp(14rem, 25vw, 19rem); padding:1.6rem 0 0 1.6rem; margin-bottom:0.6rem; overflow:hidden;
+                          background:var(--sunk); background:color-mix(in srgb, var(--ref) 30%, var(--surface)); }
+#seite .ref-geraetefeld .geraet-rechner { display:block; width:86%; height:auto; border-radius:10px 10px 0 0; border:1px solid rgba(0,0,51,.08);
+                                   box-shadow:0 14px 36px rgba(0,0,51,.16); }
+#seite .ref-link { align-self:flex-start; margin-top:auto; font-size:0.92rem; font-weight:500; color:var(--accent); text-underline-offset:3px; }
+
+/* ---- Fallbeispiel-Seite (referenz-betreuungsvoll): Bild und Liste nebeneinander, abwechselnd ------------------ */
+#seite .fall-zeile { display:grid; gap:clamp(1.5rem, 4vw, 3.5rem); align-items:center; }
+#seite .fall-zeile + .fall-zeile { margin-top:clamp(2.5rem, 6vw, 4.5rem); }
+@media (min-width:52rem) { #seite .fall-zeile { grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); }
+                           #seite .fall-zeile.gedreht > :first-child { order:2; } }
+#seite .fall-zeile .h3 { font-size:1.35rem; margin-bottom:0.8rem; }
+#seite .fall-liste { display:grid; gap:0.65rem; list-style:none; max-width:48rem; }
+#seite .fall-liste li { position:relative; padding-left:1.6rem; color:var(--soft); }
+#seite .fall-liste li::before { content:""; position:absolute; left:0; top:0.5em; width:0.6rem; height:0.6rem; border-radius:0.15rem;
+                                background:linear-gradient(135deg, #00DF3A, #13AD9C); }
+#seite .fall-bild-rechner { display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--rule); box-shadow:0 14px 36px rgba(0,0,51,.12); }
+
+/* ---- Arbeitsproben (3D-Unterseite): Bild 16:9, Filme mit Abspielzeichen, verlinkt statt eingebettet (kein YouTube-Laden) */
+#seite .proben { display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(19rem, 1fr)); }
+#seite .probe { display:flex; flex-direction:column; gap:0.6rem; padding-bottom:1.5rem; overflow:hidden;
+                background:var(--surface); border:1px solid var(--rule); border-radius:16px; }
+#seite .probe > :not(.probe-bild) { margin-inline:1.5rem; }
+#seite .probe-bild { position:relative; display:block; aspect-ratio:16 / 9; margin-bottom:0.6rem; overflow:hidden; background:var(--sunk); }
+#seite .probe-bild img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.2,.7,.2,1); }
+a.probe-bild:hover img { transform:scale(1.03); }
+#seite .probe-bild.film::after { content:""; position:absolute; left:50%; top:50%; width:4.2rem; height:4.2rem; margin:-2.1rem 0 0 -2.1rem; border-radius:50%;
+                                 background:rgba(0,0,51,.78) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l9 5-9 5z' fill='%23fff'/%3E%3C/svg%3E") center / 55% no-repeat;
+                                 box-shadow:0 10px 30px rgba(0,0,51,.3); transition:transform .2s; }
+#seite .probe-bild.film:hover::after { transform:scale(1.08); }
+
+/* ---- Handy-Rahmen fuer alle Handyansichten (Referenzen, Fallbeispiel) ---------------------------------------
+   Duenner Rand in festen Pixeln (Prozent beim padding beziehen sich auf die umgebende Flaeche, nicht aufs Handy:
+   in den Karten wurde der Rand so 14 px dick). Die Ecken bleiben in Prozent des Handys, damit klein kein "Ei" entsteht.
+   Die Aufnahme bestimmt die Hoehe, es wird nichts abgeschnitten. */
+#seite .handy-rahmen { position:relative; display:block; padding:4px; border-radius:11.5% / 6.2%; background:#15171E;
+                       box-shadow:inset 0 0 0 1px rgba(255,255,255,.16), 0 16px 36px rgba(0,0,51,.22); }
+#seite .handy-rahmen img { display:block; width:100%; height:auto; border-radius:10% / 5.4%; background:#fff; }
+#seite .handy-rahmen::before { content:""; position:absolute; z-index:1; top:2.6%; left:50%; width:3.6%; aspect-ratio:1; transform:translateX(-50%);
+                               border-radius:50%; background:#15171E; }
+/* Platzierung: Hauptbeispiel unten rechts ueber der Rechner-Ansicht, Website-Karten rechts im Farbfeld */
+#seite .ref-bild .handy-rahmen { position:absolute; right:0; bottom:0; width:30%; max-width:11.5rem; }
+#seite .ref-geraetefeld .handy-rahmen { position:absolute; right:1.4rem; top:2.2rem; width:22%; padding:3px; }
+#seite .fall-handy { width:min(15rem, 62%); margin-inline:auto; padding:5px; }
+@media (max-width:40rem) { #seite .handy-rahmen { padding:2.5px; } #seite .ref-geraetefeld .handy-rahmen { padding:2px; } #seite .fall-handy { padding:4px; } }
+
+/* ---- Ueber mich mit Foto (2026-10-09): Foto links, Text rechts, "Mein Versprechen" als Leiste darunter ---------- */
+#seite .ueber-mit-foto { display:grid; gap:clamp(1.75rem, 4vw, 3.5rem); grid-template-areas:"foto" "text" "zahlen" "karte"; }
+@media (min-width:52rem) { #seite .ueber-mit-foto { grid-template-columns:minmax(0, 0.8fr) minmax(0, 1.2fr); grid-template-areas:"foto text" "zahlen zahlen" "karte karte"; align-items:center; } }
+#seite .ueber-text { grid-area:text; display:grid; gap:1.1rem; }
+#seite .ueber-foto { grid-area:foto; position:relative; margin:0; width:100%; max-width:26rem; aspect-ratio:4 / 5; overflow:hidden; border-radius:24px;
+                     background:var(--sunk); border:1px solid var(--rule); }
+@media (max-width:51.99rem) { #seite .ueber-foto { max-width:21rem; margin-inline:auto; } }
+#seite .ueber-foto img { position:absolute; z-index:1; left:50%; bottom:0; width:67%; height:auto; transform:translateX(-50%); }   /* 80 % der frueheren Groesse, mittig, unten buendig */
+#seite .ueber-foto figcaption { position:absolute; z-index:2; left:50%; bottom:1rem; transform:translateX(-50%); width:max-content; max-width:calc(100% - 2rem);
+                                text-align:center; display:grid; gap:0.1rem; padding:0.8rem 1.2rem;
+                                background:var(--surface); border:1px solid var(--rule); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,51,.12); }
+#seite .ueber-foto figcaption b { font-weight:600; color:var(--ink); }
+#seite .ueber-foto figcaption span { font-size:0.85rem; color:var(--soft); }
+#seite .ueber-mit-foto .versprechen-karte { grid-area:karte; }
+@media (min-width:52rem) { #seite .ueber-mit-foto .versprechen-karte ul { grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1.5rem; } }
+
+/* Netz-Landschaft hinter dem Foto (seite.js): Maus hebt die Knoten, Klick schickt eine Welle; das Foto laesst die Maus durch */
+#seite .ueber-netz { position:absolute; inset:0; width:100%; height:100%; z-index:0; display:block; }
+#seite .ueber-foto { cursor:pointer; user-select:none; -webkit-user-select:none; }
+#seite .ueber-foto img { pointer-events:none; -webkit-user-drag:none; }
+#seite .ueber-foto figcaption i { font-style:normal; }
+/* Handy: Ort in eine eigene Zeile statt aus der Karte heraus */
+@media (max-width:51.99rem) { #seite .ueber-foto figcaption { padding:0.65rem 1.1rem; } #seite .ueber-foto figcaption span { font-size:0.8rem; }
+  #seite .ueber-foto figcaption .ort { display:block; } #seite .ueber-foto figcaption .ort i { display:none; } }
+
+/* Leistungen: Betreuung als Leiste unter den drei Karten (gehoert zu jeder Leistung) */
+#seite .betreuung-leiste { display:flex; gap:1.1rem; align-items:flex-start; margin-top:1rem; padding:clamp(1.2rem, 3vw, 1.6rem) clamp(1.2rem, 3vw, 2rem);
+                           background:#E6F7EF; border:1px solid #CDEEDD; border-radius:16px; }
+html.dunkel #seite .betreuung-leiste { background:#0E2A22; border-color:#174536; }
+#seite .betreuung-leiste .ic { margin:0; flex:none; background:var(--surface); }
+#seite .betreuung-leiste .h3 { margin-bottom:0.35rem; }
+#seite .betreuung-leiste .body { color:var(--ink); opacity:.85; max-width:52rem; }
+/* Software-Seite: Fallbeispiel Betreuungsvoll in Teilen */
+#seite .praxis-teil { margin-top:clamp(2.5rem, 6vw, 4.5rem); }
+#seite .praxis-teil > .h3 { font-size:1.35rem; margin-bottom:0.5rem; }
+#seite .praxis-teil > .body { margin-bottom:1.4rem; max-width:40rem; }
+
+/* Zettel und Fliessband in einem Abschnitt: Zwischenueberschrift als Bruecke zum Fliessband */
+#seite .dig-bruecke { margin-top:clamp(3rem, 7vw, 5rem); }
+#seite .dig-bruecke { margin-bottom:clamp(2rem, 5vw, 3rem); }   /* gleiche gruene Leiste wie "Und danach?" */
+
+/* Netz-Hintergrund im oberen Bereich der Unterseiten, hell und dunkel (seite.js setzt .mit-netz) */
+#seite .netz-hg { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block; }
+#seite .mit-netz > .wrap { position:relative; z-index:1; }
+
+/* Ueber mich: vier Eckdaten, die Zahlen zaehlen beim Hereinscrollen hoch (seite.js, data-zahl) */
+#seite .ueber-zahlen { grid-area:zahlen; display:grid; gap:1rem; grid-template-columns:repeat(2, minmax(0, 1fr)); list-style:none; margin:0; padding:0; }
+@media (min-width:52rem) { #seite .ueber-zahlen { grid-template-columns:repeat(4, minmax(0, 1fr)); } }
+#seite .ueber-zahlen li { display:grid; gap:0.35rem; align-content:start; padding:clamp(1.1rem, 2.5vw, 1.5rem); background:var(--surface);
+                          border:1px solid var(--rule); border-radius:16px; }
+#seite .ueber-zahlen b { font-size:clamp(2.1rem, 4.2vw, 2.9rem); font-weight:600; line-height:1; letter-spacing:-0.03em;
+                         background:var(--verlauf); -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+                         font-variant-numeric:tabular-nums; }
+#seite .ueber-zahlen li > span { color:var(--soft); font-size:0.92rem; line-height:1.45; }

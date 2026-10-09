@@ -1,4 +1,4 @@
-/* BloomLogic Webseite: Einblenden, Banderole, lebende Kacheln, Bremse zum Zerlegen, Handy-Menue, Reiter.
+/* BloomLogic Webseite: Einblenden, Banderole, lebende Kacheln, Bremse zum Zerlegen, Handy-Menue.
    Genutzt von der Startseite und den Unterseiten. <html data-basis="../"> auf Unterseiten fuer Bildpfade. */
 (function () {
   'use strict';
@@ -20,7 +20,7 @@
     z.innerHTML = html + html;
   });
 
-  /* Schluss-Hero: ein weiches Licht im Logo-Verlauf folgt der Maus, die Maus hinterlaesst Blaetter aus dem Logo
+  /* Schluss-Hero: Netz-Landschaft im Hintergrund, ein weiches Licht im Logo-Verlauf folgt der Maus, die Maus hinterlaesst Blaetter aus dem Logo
      (i-Punkt, meist im Verlauf, jedes fuenfte in Navy), die aufgehen, trudelnd absinken und verblassen. Am Handy:
      Tippen laesst ein paar Blaetter aufgehen. Nur aktiv, wenn der fertige Hero zu sehen ist. */
   (function () {
@@ -47,7 +47,9 @@
       var r = buehne.getBoundingClientRect(); return r.bottom > window.innerHeight * 0.4;
     }
     function lage(e) { var r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+    var BLAETTER = false;   /* Blaetter hinter der Maus: aus seit 2026-10-09 (zu viel zusammen mit dem Netz), true schaltet sie wieder ein */
     function bluete(x, y, gross) {
+      if (!BLAETTER) return;
       if (blueten.length > 60) blueten.shift();
       blueten.push({ x: x, y: y, t: performance.now(), g: (gross || 1) * (10 + Math.random() * 10), r: Math.random() * 6.3,
                      bild: Math.random() < 0.2 ? navy : gruen,
@@ -69,43 +71,35 @@
       if (!aktiv() || e.touches.length !== 1) return;
       var p = lage(e.touches[0]);
       for (var i = 0; i < 5; i++) bluete(p[0] + (Math.random() - 0.5) * 70, p[1] + (Math.random() - 0.5) * 70, 1.1);
+      if (LINIEN) netz.welle(p[0], p[1]);
     }, { passive: true });
     function start() { if (!laeuft) { laeuft = true; requestAnimationFrame(schritt); } }
-    /* Fliessende Linien im Hintergrund (Vorschau, mit LINIEN = false wieder aus): duenne Wellen im Logo-Verlauf, die
-       langsam ziehen und der Maus ausweichen; die Mitte bleibt fuer Logo und Text frei */
-    var LINIEN = true, linienA = 0;
+    /* Hintergrund: dieselbe Netz-Landschaft wie hinter dem Foto bei "Ueber mich" (mit LINIEN = false wieder aus).
+       Die Mitte bleibt fuer Logo und Text ruhiger. Klick oder Tippen schickt eine Welle durch das Netz. */
+    var LINIEN = true, linienA = 0, netz = netzLandschaft(), netzZeit = 0.8, netzLetzt = 0, netzBreite = 0;
     function linien(jetzt) {
-      var sek = jetzt / 1000, N = 15, ab = 12;
-      var v = cx.createLinearGradient(0, 0, W, 0); v.addColorStop(0, '#13AD9C'); v.addColorStop(0.5, '#10B48C'); v.addColorStop(1, '#00DF3A');
-      cx.strokeStyle = v; cx.lineWidth = 1.6; cx.lineJoin = 'round';
-      for (var i = 0; i < N; i++) {
-        var basis = H * (0.06 + 0.88 * i / (N - 1)), amp = 22 + 14 * Math.sin(i * 1.3);
-        cx.globalAlpha = linienA * (0.18 + 0.14 * Math.pow(Math.sin(i * 0.7 + sek * 0.25), 2));
-        cx.beginPath();
-        for (var x = -ab; x <= W + ab; x += ab) {
-          var y = basis + Math.sin(x * 0.0042 + sek * 0.32 + i * 0.45) * amp + Math.sin(x * 0.011 - sek * 0.21 + i * 0.9) * amp * 0.4;
-          if (licht.a > 0.01) {                       /* der Maus ausweichen */
-            var dx = x - licht.x, dy = y - licht.y;
-            y += (dy >= 0 ? 1 : -1) * 42 * licht.a * Math.exp(-(dx * dx + dy * dy) / (2 * 140 * 140));
-          }
-          if (x === -ab) cx.moveTo(x, y); else cx.lineTo(x, y);
-        }
-        cx.stroke();
-      }
+      var dt = Math.min(0.05, (jetzt - (netzLetzt || jetzt)) / 1000); netzLetzt = jetzt; netzZeit += dt * 0.6;
+      if (netzBreite !== W) { netzBreite = W; netz.aufbauen(Math.max(26, Math.min(52, Math.round(W / 28))), W < 600 ? 28 : 32); }
+      cx.globalAlpha = linienA;
+      netz.malen(cx, W, H, netzZeit, licht.a > 0.3 ? [licht.x, licht.y] : null, Math.min(1.3, Math.max(0.8, W / 400)));
       cx.globalAlpha = 1;
-      cx.globalCompositeOperation = 'destination-out';  /* Mitte frei halten */
-      var m = cx.createRadialGradient(W / 2, H * 0.5, 0, W / 2, H * 0.5, Math.max(W, H) * 0.45);
-      m.addColorStop(0, 'rgba(0,0,0,0.8)'); m.addColorStop(0.55, 'rgba(0,0,0,0.35)'); m.addColorStop(1, 'rgba(0,0,0,0)');
+      cx.globalCompositeOperation = 'destination-out';  /* Mitte ruhiger halten */
+      var m = cx.createRadialGradient(W / 2, H * 0.5, 0, W / 2, H * 0.5, Math.max(W, H) * 0.42);
+      m.addColorStop(0, 'rgba(0,0,0,0.55)'); m.addColorStop(0.6, 'rgba(0,0,0,0.2)'); m.addColorStop(1, 'rgba(0,0,0,0)');
       cx.fillStyle = m; cx.fillRect(0, 0, W, H);
       cx.globalCompositeOperation = 'source-over';
     }
+    window.addEventListener('click', function (e) {
+      if (!LINIEN || !aktiv() || e.target.closest('a, button, input, textarea, #kopf, #mobilmenue')) return;
+      var p = lage(e); netz.welle(p[0], p[1]); start();
+    });
     setInterval(function () { if (LINIEN && aktiv()) start(); }, 400);
     window.addEventListener('scroll', function () { if (LINIEN && aktiv()) start(); }, { passive: true });
     function schritt(jetzt) {
       cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.clearRect(0, 0, W, H);
       var an = LINIEN && aktiv();
       linienA += ((an ? 1 : 0) - linienA) * 0.05;
-      if (linienA > 0.01) linien(jetzt); else linienA = an ? linienA : 0;
+      if (linienA > 0.01) linien(jetzt); else { linienA = an ? linienA : 0; netzLetzt = 0; }
       /* Licht: gedaempft hinterher, blendet weich ein und aus */
       licht.x += (licht.zx - licht.x) * 0.08; licht.y += (licht.zy - licht.y) * 0.08; licht.a += (licht.za - licht.a) * 0.06;
       if (licht.a > 0.005) {
@@ -179,41 +173,176 @@
     Array.prototype.forEach.call(document.querySelectorAll('#seite > section, #seite > .band, #seite footer'), function (el) { ruheIO.observe(el); });
   }
 
+  /* Netz-Landschaft (gemeinsam fuer Schlussbild und "Ueber mich"): viele kleine Dreiecke in Perspektive, zart gefuellt
+     und je nach Neigung heller oder dunkler, darueber duenne Linien und kleine Knoten als weiche Quadrate wie die Pixel
+     im Logo (Logo-Verlauf, einzelne Knoten in Navy). Rollt in Wellen auf den Betrachter zu, hinten klein und blass,
+     vorn kraeftiger. Unter der Maus heben sich die Knoten, welle(x, y) schickt einen Ring durch das Netz. */
+  function netzLandschaft() {
+    var NX = 0, NZ = 0, knoten = [], wellen = [], bw = 0;
+    var A = [19, 173, 156], B = [0, 223, 58];
+    function rgba(c, al) { return 'rgba(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ',' + al.toFixed(3) + ')'; }
+    function aufbauen(nx, nz) {
+      var saat = 17; function zufall() { saat = (saat * 16807) % 2147483647; return (saat - 1) / 2147483646; }
+      NX = nx; NZ = nz; knoten = [];
+      for (var jz = 0; jz <= NZ; jz++) for (var ix = 0; ix <= NX; ix++) {
+        knoten.push({ x: -2.3 + 4.6 * (ix + (zufall() - 0.5) * 0.5) / NX, z: (jz + (zufall() - 0.5) * 0.5) / NZ,
+                      g: zufall() < 0.08 ? 1.7 : 0.5 + zufall() * 0.6, navy: zufall() < 0.04, zeigen: zufall() < 0.55,
+                      sx: 0, sy: 0, s: 1, d: 0, y: 0, hl: 0 });
+      }
+    }
+    function id(ix, jz) { return jz * (NX + 1) + ix; }
+    function hoehe(x, z, t) {
+      return Math.sin(x * 1.7 + z * 4.2 - t * 1.1) * 0.55 + Math.sin(z * 6.5 - x * 0.8 - t * 1.6) * 0.3 + Math.sin(x * 3.4 + t * 0.7) * 0.15;
+    }
+    /* ctx, Breite, Hoehe, Zeit, Mausposition (oder null), Massstab k fuer Knoten und Linien, optional Wellenhoehe in px */
+    function malen(ctx, w, h, zeit, maus, k, amp) {
+      var dunkel = document.documentElement.classList.contains('dunkel'), jetzt = performance.now();
+      var hell = dunkel ? [14, 52, 40] : [221, 246, 233], tief = dunkel ? [30, 128, 92] : [96, 214, 162];
+      bw = w; wellen = wellen.filter(function (q) { return jetzt - q.t < 2600; });
+      knoten.forEach(function (n) {
+        var s = 1 / (1 + 1.05 * n.z), bx = w / 2 + n.x * w * 0.56 * s, by = h * 1.1 - n.z * h * 1.28, wy = hoehe(n.x, n.z, zeit);
+        var hub = wy * (amp || h * 0.05) * s;
+        wellen.forEach(function (q) {                  /* Klick-Welle: Ring laeuft vom Klickpunkt nach aussen */
+          var alt = (jetzt - q.t) / 1000, dd = Math.sqrt((bx - q.x) * (bx - q.x) + (by - q.y) * (by - q.y)), r = alt * Math.max(w, h) * 0.55;
+          hub += Math.exp(-((dd - r) * (dd - r)) / (2 * 22 * 22 * k * k)) * 16 * k * Math.max(0, 1 - alt / 2.6);
+        });
+        n.hl += ((maus && Math.hypot(bx - maus[0], by - maus[1]) < 55 * k ? 1 : 0) - n.hl) * 0.15;   /* unter der Maus anheben */
+        n.s = s; n.d = 1 - n.z; n.y = wy; n.sx = bx; n.sy = by - hub - n.hl * 10 * k;
+      });
+      var linie = dunkel ? '62,224,107' : '16,170,130';
+      for (var jz = NZ - 1; jz >= 0; jz--) {           /* hinten zuerst, Reihe fuer Reihe */
+        var d = 1 - (jz + 0.5) / NZ;
+        for (var ix = 0; ix < NX; ix++) {
+          var a = knoten[id(ix, jz)], b = knoten[id(ix + 1, jz)], c = knoten[id(ix, jz + 1)], e = knoten[id(ix + 1, jz + 1)];
+          var dreiecke = (ix + jz) % 2 ? [[a, b, e], [a, e, c]] : [[a, b, c], [b, e, c]];
+          for (var t = 0; t < 2; t++) {
+            var p = dreiecke[t][0], q = dreiecke[t][1], r = dreiecke[t][2];
+            var l = Math.max(0, Math.min(1, 0.5 + (p.y - r.y) * 1.2 + (q.y - p.y) * 0.8));
+            var f = [hell[0] + (tief[0] - hell[0]) * l, hell[1] + (tief[1] - hell[1]) * l, hell[2] + (tief[2] - hell[2]) * l];
+            ctx.fillStyle = rgba(f, (0.05 + 0.28 * d) * (dunkel ? 0.9 : 1));
+            ctx.beginPath(); ctx.moveTo(p.sx, p.sy); ctx.lineTo(q.sx, q.sy); ctx.lineTo(r.sx, r.sy); ctx.closePath(); ctx.fill();
+          }
+        }
+        ctx.beginPath();                               /* Linien der Reihe in einem Zug */
+        for (ix = 0; ix <= NX; ix++) {
+          var n0 = knoten[id(ix, jz)], n1 = knoten[id(ix, jz + 1)];
+          ctx.moveTo(n0.sx, n0.sy); ctx.lineTo(n1.sx, n1.sy);
+          if (ix < NX) {
+            var n2 = knoten[id(ix + 1, jz)], n3 = knoten[id(ix + 1, jz + 1)];
+            ctx.moveTo(n0.sx, n0.sy); ctx.lineTo(n2.sx, n2.sy);
+            if ((ix + jz) % 2) { ctx.moveTo(n0.sx, n0.sy); ctx.lineTo(n3.sx, n3.sy); } else { ctx.moveTo(n2.sx, n2.sy); ctx.lineTo(n1.sx, n1.sy); }
+          }
+        }
+        ctx.strokeStyle = 'rgba(' + linie + ',' + (0.05 + 0.22 * d).toFixed(3) + ')'; ctx.lineWidth = (0.3 + 0.7 * d) * k; ctx.stroke();
+      }
+      for (var i = knoten.length - 1; i >= 0; i--) {   /* Knoten: klein, nur ein Teil sichtbar, unter der Maus alle */
+        var n = knoten[i]; if (!n.zeigen && n.hl < 0.05) continue;
+        var g = (1.6 + 3.4 * n.g) * k * n.s * (1 + n.hl * 0.9), tt = Math.max(0, Math.min(1, 1 - n.sy / h));
+        var farbe = n.navy ? (dunkel ? [205, 244, 222] : [0, 0, 51]) : [A[0] + (B[0] - A[0]) * tt, A[1] + (B[1] - A[1]) * tt, A[2] + (B[2] - A[2]) * tt];
+        ctx.fillStyle = rgba(farbe, Math.min(1, (n.navy ? 0.3 + 0.5 * n.d : 0.14 + 0.66 * n.d) + n.hl * 0.45));
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(n.sx - g / 2, n.sy - g / 2, g, g, g * 0.3); else ctx.rect(n.sx - g / 2, n.sy - g / 2, g, g);
+        ctx.fill();
+      }
+    }
+    return { aufbauen: aufbauen, malen: malen, welle: function (x, y) { wellen.push({ x: x, y: y, t: performance.now() }); } };
+  }
+
+  /* Ueber mich: Netz-Landschaft hinter dem Foto. Laeuft nur, solange es zu sehen ist; bei reduzierter Bewegung ruhend. */
+  (function () {
+    var cv = document.querySelector('#seite .ueber-netz'); if (!cv || !cv.getContext) return;
+    var feld = cv.parentNode, ctx = cv.getContext('2d'), netz = netzLandschaft(), w = 0, h = 0, sichtbar = false, laeuft = false, letzt = 0, zeit = 0.8, maus = null;
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function groesse() {
+      var r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
+      w = r.width; h = r.height; cv.width = Math.round(w * d); cv.height = Math.round(h * d); ctx.setTransform(d, 0, 0, d, 0, 0);
+      if (w >= 360) netz.aufbauen(36, 36); else netz.aufbauen(26, 28);   /* Handy etwas groeber (Rechenzeit) */
+    }
+    function malen() { ctx.clearRect(0, 0, w, h); netz.malen(ctx, w, h, zeit, maus, w / 400); }
+    function schritt(now) {
+      var dt = Math.min(0.05, (now - (letzt || now)) / 1000); letzt = now; zeit += dt * 0.6;
+      malen();
+      if (sichtbar && !still) requestAnimationFrame(schritt); else { laeuft = false; letzt = 0; }
+    }
+    function starten() { if (!laeuft && sichtbar && !still) { laeuft = true; requestAnimationFrame(schritt); } }
+    function lage(e) { var r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+    feld.addEventListener('pointermove', function (e) { maus = lage(e); if (still) malen(); });
+    feld.addEventListener('pointerleave', function () { maus = null; });
+    feld.addEventListener('click', function (e) { var l = lage(e); netz.welle(l[0], l[1]); });
+    groesse(); malen();
+    window.addEventListener('resize', function () { groesse(); malen(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { sichtbar = e[0].isIntersecting; starten(); }, { rootMargin: '100px 0px' }).observe(cv);
+    }
+  })();
+
+  /* Unterseiten: Hell/Dunkel-Schalter merkt die Wahl im Browser und laedt neu (die Startseite hat ihren eigenen Schalter) */
+  (function () {
+    var th = document.querySelector('#kopf .thema'); if (!th || document.getElementById('strecke')) return;
+    var dunkel = document.documentElement.classList.contains('dunkel');
+    th.setAttribute('aria-label', dunkel ? 'Zur hellen Ansicht wechseln' : 'Zur dunklen Ansicht wechseln'); th.title = dunkel ? 'Helle Ansicht' : 'Dunkle Ansicht';
+    th.addEventListener('click', function () {
+      try { if (dunkel) localStorage.removeItem('bl-dunkel'); else localStorage.setItem('bl-dunkel', '1'); } catch (e) {}
+      var q = new URLSearchParams(location.search); q.delete('dunkel');
+      var such = q.toString(); location.replace(location.pathname + (such ? '?' + such : '') + location.hash);
+    });
+  })();
+
+  /* Hell und dunkel: dieselbe Netz-Landschaft im oberen Bereich jeder Leistungs-Unterseite (auf der Startseite bei den
+     Leistungen auf Tahsins Wunsch nicht, 2026-10-09).
+     Oben und unten weich ausgeblendet, damit sie in die Nachbarabschnitte uebergeht. Laeuft nur, solange zu sehen. */
+  (function () {
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    Array.prototype.forEach.call(document.querySelectorAll('#seite .section.held'), function (sek) {
+      var cv = document.createElement('canvas'); if (!cv.getContext) return;
+      cv.className = 'netz-hg'; cv.setAttribute('aria-hidden', 'true'); sek.insertBefore(cv, sek.firstChild); sek.classList.add('mit-netz');
+      var ctx = cv.getContext('2d'), netz = netzLandschaft(), w = 0, h = 0, sichtbar = false, laeuft = false, letzt = 0, zeit = 0.8, maus = null;
+      function groesse() {
+        var d = Math.min(1.5, window.devicePixelRatio || 1);
+        w = sek.clientWidth; h = sek.clientHeight; if (!w || !h) return;
+        cv.width = Math.round(w * d); cv.height = Math.round(h * d); ctx.setTransform(d, 0, 0, d, 0, 0);
+        var nx = Math.max(26, Math.min(52, Math.round(w / 28)));
+        netz.aufbauen(nx, Math.max(24, Math.min(60, Math.round(nx * h / w * 0.75))));   /* hohe Abschnitte: mehr Reihen */
+      }
+      function malen() {
+        if (!w || !h) return;
+        ctx.globalCompositeOperation = 'source-over'; ctx.clearRect(0, 0, w, h);
+        netz.malen(ctx, w, h, zeit, maus, Math.min(1.3, Math.max(0.8, w / 400)), Math.min(h * 0.05, w * 0.08));
+        var g = ctx.createLinearGradient(0, 0, 0, h), r = Math.min(0.2, 140 / h);
+        g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(r, 'rgba(0,0,0,.85)'); g.addColorStop(1 - r, 'rgba(0,0,0,.85)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.globalCompositeOperation = 'destination-in'; ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+        ctx.globalCompositeOperation = 'source-over';
+      }
+      function schritt(now) {
+        var dt = Math.min(0.05, (now - (letzt || now)) / 1000); letzt = now; zeit += dt * 0.6;
+        malen();
+        if (sichtbar && !still) requestAnimationFrame(schritt); else { laeuft = false; letzt = 0; }
+      }
+      function starten() { if (!laeuft && sichtbar && !still) { laeuft = true; requestAnimationFrame(schritt); } }
+      function lage(e) { var r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+      sek.addEventListener('pointermove', function (e) { maus = lage(e); });
+      sek.addEventListener('pointerleave', function () { maus = null; });
+      sek.addEventListener('click', function (e) {
+        if (e.target.closest('a, button, input, textarea, .k-3d')) return;
+        var l = lage(e); netz.welle(l[0], l[1]); starten();
+      });
+      groesse(); malen();
+      if ('ResizeObserver' in window) new ResizeObserver(function () { groesse(); malen(); }).observe(sek);
+      else window.addEventListener('resize', function () { groesse(); malen(); });
+      if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { sichtbar = e[0].isIntersecting; starten(); }, { rootMargin: '100px 0px' }).observe(sek);
+    });
+  })();
+
   /* Kennen Sie das: rotes Filzstift-Kreuz auf jedem Zettel (zeichnet sich, wenn die Zeile ins Bild kommt) und
      Spaltenkopf "Heute" / "Mit System" (am Handy als Legende) */
   Array.prototype.forEach.call(document.querySelectorAll('#seite .alltag'), function (liste) {
-    liste.insertAdjacentHTML('beforebegin', '<div class="alltag-kopf" aria-hidden="true"><span class="heute">Heute</span><span class="mit">Mit System</span></div>');
+    var links = liste.dataset.links || 'Heute', rechts = liste.dataset.rechts || 'Mit System';   /* Fallbeispiel: Vorher / Mit der App */
+    liste.insertAdjacentHTML('beforebegin', '<div class="alltag-kopf" aria-hidden="true"><span class="heute">' + links + '</span><span class="mit">' + rechts + '</span></div>');
     Array.prototype.forEach.call(liste.querySelectorAll('.vorher'), function (z) {
       z.insertAdjacentHTML('beforeend', '<svg class="kreuz" viewBox="0 0 24 24" aria-hidden="true">' +
         '<path pathLength="1" d="M5 5c4 4 9 9 14 14"/><path pathLength="1" d="M19 5C14 9 9 15 5 19"/></svg>');
     });
   });
-
-  /* Branchen-Reiter: Klick oder Pfeiltasten, der Verlaufsstrich gleitet unter den aktiven Reiter */
-  (function () {
-    var leiste = document.querySelector('#seite .reiter-leiste'); if (!leiste) return;
-    var knoepfe = Array.prototype.slice.call(leiste.querySelectorAll('[role="tab"]')), strich = leiste.querySelector('.reiter-strich');
-    function strichSetzen(k) { strich.style.width = k.offsetWidth + 'px'; strich.style.transform = 'translateX(' + k.offsetLeft + 'px)'; }
-    function waehle(k, fokus) {
-      knoepfe.forEach(function (b) {
-        var an = b === k; b.setAttribute('aria-selected', an ? 'true' : 'false'); b.tabIndex = an ? 0 : -1;
-        document.getElementById(b.getAttribute('aria-controls')).hidden = !an;
-      });
-      strichSetzen(k); if (fokus) k.focus();
-      k.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-    }
-    knoepfe.forEach(function (b, i) {
-      b.addEventListener('click', function () { waehle(b); });
-      b.addEventListener('keydown', function (e) {
-        var n = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        if (n) { e.preventDefault(); waehle(knoepfe[(i + n + knoepfe.length) % knoepfe.length], true); }
-      });
-    });
-    var start = function () { strichSetzen(knoepfe.filter(function (b) { return b.getAttribute('aria-selected') === 'true'; })[0]); };
-    window.addEventListener('resize', start);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(start); else start();
-    start();
-  })();
 
   /* Eckdaten: Zahlen zaehlen einmal hoch, wenn sie ins Bild kommen */
   document.querySelectorAll('#seite [data-zahl]').forEach(function (el) {
@@ -339,10 +468,10 @@
         .then(function (x) {
           kKnopf.disabled = false;
           if (x.j.ok) { kForm.reset(); kMelde('Danke! Ihre Nachricht ist angekommen. Ich melde mich bei Ihnen.', true); return; }
-          if (x.code === 429) kMelde('Zu viele Anfragen in kurzer Zeit. Bitte später erneut versuchen oder an kontakt@bloomlogic.de schreiben.');
-          else kMelde('Das hat leider nicht geklappt. Bitte schreiben Sie direkt an kontakt@bloomlogic.de.');
+          if (x.code === 429) kMelde('Zu viele Anfragen in kurzer Zeit. Bitte später erneut versuchen, an info@bloomlogic.de schreiben oder anrufen: 0151 207 88 220.');
+          else kMelde('Das hat leider nicht geklappt. Bitte schreiben Sie an info@bloomlogic.de oder rufen Sie an: 0151 207 88 220.');
         })
-        .catch(function () { kKnopf.disabled = false; kMelde('Das hat leider nicht geklappt. Bitte schreiben Sie direkt an kontakt@bloomlogic.de.'); });
+        .catch(function () { kKnopf.disabled = false; kMelde('Das hat leider nicht geklappt. Bitte schreiben Sie an info@bloomlogic.de oder rufen Sie an: 0151 207 88 220.'); });
     });
   }
 
@@ -383,7 +512,7 @@
     });
   }
 
-  /* Web: Suche tippt sich, der Betrieb taucht auf, das Auftragsradar meldet sich */
+  /* Web: Suche tippt sich, der Betrieb taucht auf, eine neue Anfrage meldet sich */
   var suche = document.querySelector('#seite .mini-suche');
   if (suche) {
     var sf = suche.querySelector('[data-text]'), tr = suche.querySelector('.ms-treffer'), me = suche.querySelector('.ms-meldung');

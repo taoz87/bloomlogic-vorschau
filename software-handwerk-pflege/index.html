@@ -20,6 +20,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../fonts/Poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/seite.css">
+<script>try{if(localStorage.getItem('bl-dunkel')==='1'||/[?&]dunkel\b/.test(location.search))document.documentElement.classList.add('dunkel')}catch(e){}</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -34,6 +35,8 @@
         "@type": "ProfessionalService",
         "name": "bloomlogic",
         "url": "https://bloomlogic.de/",
+        "email": "info@bloomlogic.de",
+        "telephone": "+49 151 20788220",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Braunschweig",
@@ -138,6 +141,14 @@
         },
         {
           "@type": "Question",
+          "name": "Wer kümmert sich nach dem Start?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ich. Updates, Sicherungen und ein Ansprechpartner, der Ihr System kennt, dazu eine Einweisung für Ihr Team direkt bei Ihnen. Die Software läuft bei einem Anbieter in Deutschland, der Vertrag läuft auf Sie."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Wie einfach ist die Software zu bedienen?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -161,10 +172,11 @@
         <a href="../software-handwerk-pflege/" aria-current="page"><b>Software für Handwerk und Pflege</b><span>Aufträge, Termine, Stunden, E-Rechnung</span></a>
         <a href="../website-braunschweig/"><b>Websites und SEO</b><span>Gefunden werden in Braunschweig und Umgebung</span></a>
         <a href="../3d-visualisierung-cad/"><b>3D-Visualisierung aus CAD</b><span>Produktbilder, Explosionsansichten, Videos</span></a>
-        <a href="../hosting-betreuung/"><b>Hosting und Betreuung</b><span>Hosting in Deutschland, Wartung, Schulung</span></a>
       </div></div></div>
   </nav>
   <div class="rechts">
+    <button type="button" class="thema" aria-label="Zur dunklen Ansicht wechseln" title="Dunkle Ansicht"><span class="spur"><span class="knopf-t"></span></span>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
     <a class="btn primaer" href="#kontakt">Lass uns reden</a>
     <button type="button" class="menue" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobilmenue"><i></i></button>
   </div>
@@ -176,7 +188,6 @@
     <a href="../software-handwerk-pflege/" aria-current="page">Software für Handwerk und Pflege</a>
     <a href="../website-braunschweig/">Websites und SEO</a>
     <a href="../3d-visualisierung-cad/">3D-Visualisierung aus CAD</a>
-    <a href="../hosting-betreuung/">Hosting und Betreuung</a>
   </div></div>
   <a class="btn primaer" href="#kontakt">Lass uns reden</a>
 </nav>
@@ -209,20 +220,6 @@
 
 <section class="section sunk"><div class="wrap">
   <div class="kopfzeile">
-    <p class="eyebrow">Kennen Sie das?</p>
-    <h2 class="h2">Weniger Papier, mehr Überblick</h2>
-  </div>
-  <ul class="alltag">
-    <li data-zeigen style="transition-delay:0ms"><span class="vorher"><span>Der Auftragszettel liegt im Auto.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Jeder Auftrag ist im System, im Büro und auf dem Handy.</span></li>
-    <li data-zeigen style="transition-delay:70ms"><span class="vorher"><span>Stundenzettel werden abgetippt.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Zeiten erfasst Ihr Team direkt, auch unterwegs.</span></li>
-    <li data-zeigen style="transition-delay:140ms"><span class="vorher"><span>Rechnungen schreiben Sie am Sonntag.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Die Rechnung entsteht aus dem Auftrag, mit einem Klick.</span></li>
-    <li data-zeigen style="transition-delay:210ms"><span class="vorher"><span>Leistungsnachweise liegen auf Papier.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Nachweise und Monatsabrechnung entstehen auf Knopfdruck.</span></li>
-  </ul>
-  <div class="anstoss" data-zeigen><p>Klingt nach Ihrem Alltag? Dann lassen Sie uns kurz sprechen.</p><a class="btn primaer" href="#kontakt">Lass uns reden</a></div>
-</div></section>
-
-<section class="section"><div class="wrap">
-  <div class="kopfzeile">
     <p class="eyebrow">Leistung</p>
     <h2 class="h2">Was ich für Sie baue</h2>
   </div>
@@ -236,6 +233,20 @@
   </div>
 </div></section>
 
+<section class="section"><div class="wrap">
+  <div class="kopfzeile">
+    <p class="eyebrow">Kennen Sie das?</p>
+    <h2 class="h2">Weniger Papier, mehr Überblick</h2>
+  </div>
+  <ul class="alltag">
+    <li data-zeigen style="transition-delay:0ms"><span class="vorher"><span>Der Auftragszettel liegt im Auto.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Jeder Auftrag ist im System, im Büro und auf dem Handy.</span></li>
+    <li data-zeigen style="transition-delay:70ms"><span class="vorher"><span>Stundenzettel werden abgetippt.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Zeiten erfasst Ihr Team direkt, auch unterwegs.</span></li>
+    <li data-zeigen style="transition-delay:140ms"><span class="vorher"><span>Rechnungen schreiben Sie am Sonntag.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Die Rechnung entsteht aus dem Auftrag, mit einem Klick.</span></li>
+    <li data-zeigen style="transition-delay:210ms"><span class="vorher"><span>Leistungsnachweise liegen auf Papier.</span></span><span class="nachher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Nachweise und Monatsabrechnung entstehen auf Knopfdruck.</span></li>
+  </ul>
+  <div class="anstoss" data-zeigen><p>Klingt nach Ihrem Alltag? Dann lassen Sie uns kurz sprechen.</p><a class="btn primaer" href="#kontakt">Lass uns reden</a></div>
+</div></section>
+
 <section class="section sunk"><div class="wrap ueber-raster">
   <div class="text-block" data-zeigen>
     <h2 class="h2">Warum nicht Software von der Stange?</h2>
@@ -243,7 +254,64 @@
     <p class="body">Eine eigene Anwendung macht genau das, was Sie brauchen. Sie läuft im Browser auf Handy, Tablet und PC, übernimmt Ihre vorhandenen Daten und wächst Schritt für Schritt mit Ihrem Betrieb.</p>
     <p class="body">Und sie ist so gestaltet, dass Ihr Team sie gern benutzt: klar, übersichtlich, ohne lange Einarbeitung. Dafür sorgt das UI- und UX-Design, das ich selbst mache.</p>
   </div>
-    <div class="br-bsp" data-zeigen><p class="eyebrow">Praxisbeispiel · Pflege- und Betreuungsdienst</p><h3 class="h3">Betreuungsvoll</h3><p>Leistungsnachweise und Monatsabrechnungen liefen über Papier und Excel. Heute erfassen Betreuerinnen ihre Zeiten am Telefon, die Abrechnung entsteht auf Knopfdruck.</p><a href="../#referenzen">Alle Referenzen</a></div>
+</div></section>
+
+<section class="section" id="betreuungsvoll"><div class="wrap">
+  <div class="kopfzeile">
+    <p class="eyebrow">Aus der Praxis · Alltagshilfe aus Gifhorn</p>
+    <h2 class="h2">Betreuungsvoll: So sieht das im Alltag aus</h2>
+    <p class="body">Die Alltagshilfe hat ihre Leistungsnachweise auf Papier und in Excel geführt. Heute läuft alles über eine eigene App: Einsätze planen, Zeiten erfassen, am Handy unterschreiben, Monatsblatt auf Knopfdruck. Das Team arbeitet am Handy, die Leitung am Rechner.</p>
+  </div>
+  <div class="fall-zeile">
+    <div data-zeigen>
+      <h3 class="h3">Für das Team, am Handy</h3>
+      <ul class="fall-liste">
+      <li>Eigener Tag und eigene Woche im Kalender</li>
+      <li>Termine selbst planen, einmalig oder als Serie</li>
+      <li>Nach dem Einsatz die tatsächliche Zeit und die Tätigkeiten eintragen, etwa Einkauf, Begleitung, Arzttermin oder Haushalt</li>
+      <li>Unterschrift von Mitarbeiter und Kunde direkt auf dem Handy</li>
+      <li>Fahrten erfassen, die Strecke rechnet die App ab der eigenen Anschrift</li>
+      <li>Jeder sieht nur seine eigenen Kunden, keine Stundensätze und Budgets</li>
+      </ul>
+    </div>
+    <span class="handy-rahmen fall-handy" data-zeigen><img src="../assets/referenzen/bv-app-erfassen-handy.jpg" alt="Einsatz erfassen am Handy: tatsächlicher Beginn und tatsächliches Ende, Tätigkeiten zum Ankreuzen" width="412" height="736" loading="lazy" decoding="async"></span>
+  </div>
+  <div class="fall-zeile gedreht">
+    <div data-zeigen>
+      <h3 class="h3">Für die Leitung, am Rechner</h3>
+      <ul class="fall-liste">
+      <li>Alle Kalender nebeneinander: Tag, Woche, Monat, Liste und offene Einsätze</li>
+      <li>Kunden anlegen, aus einer Liste übernehmen und dem Team zuordnen</li>
+      <li>Mitarbeiter anlegen, fehlende oder veraltete Unterlagen zeigt die App an</li>
+      <li>Nachweise prüfen und den Monat abschließen: Das PDF wird festgeschrieben und ist danach unveränderbar</li>
+      <li>Ein Überblick über alles, was offen ist, und ein Archiv der abgeschlossenen Monate</li>
+      <li>Aufbewahrungsfristen der Unterlagen im Blick</li>
+      </ul>
+    </div>
+    <img class="fall-bild-rechner" data-zeigen src="../assets/referenzen/bv-app-nachweise.jpg" alt="Nachweise am Rechner: Einsätze mit Kunde, Mitarbeiter, Zeit, Stunden und Tätigkeiten, Filter nach Monat und Mitarbeiter" width="785" height="744" loading="lazy" decoding="async">
+  </div>
+  <div class="praxis-teil">
+    <h3 class="h3">Anmeldung: Ein Passwort allein reicht nicht</h3>
+    <p class="body">In der App liegen Gesundheitsdaten. Deshalb ist die Anmeldung doppelt abgesichert.</p>
+    <div class="cards">
+    <div class="card" data-zeigen style="transition-delay:0ms"><h3 class="h3">Zwei-Faktor-Anmeldung</h3><p class="body">Zum Passwort kommt ein Code aus einer Authenticator-App auf dem Handy.</p></div>
+    <div class="card" data-zeigen style="transition-delay:90ms"><h3 class="h3">Einrichtung nur mit Freigabe</h3><p class="body">Die Leitung schaltet die Einrichtung frei. Der QR-Code erscheint nur auf dem eigenen Bildschirm der Person, ein weitergegebenes Passwort reicht nicht.</p></div>
+    <div class="card" data-zeigen style="transition-delay:180ms"><h3 class="h3">Vertraute Geräte</h3><p class="body">Auf dem eigenen Handy fragt die App sieben Tage lang nicht erneut nach dem Code. Geht ein Handy verloren, meldet die Leitung genau dieses Gerät ab.</p></div>
+    <div class="card" data-zeigen style="transition-delay:0ms"><h3 class="h3">Für den Notfall</h3><p class="body">Zehn Wiederherstellungscodes, jeder nur einmal nutzbar.</p></div>
+    <div class="card" data-zeigen style="transition-delay:90ms"><h3 class="h3">Sperre bei Fehlversuchen</h3><p class="body">Nach fünf falschen Versuchen in 15 Minuten ist das Konto gesperrt. Dann kommt auch mit dem richtigen Passwort niemand hinein.</p></div>
+    </div>
+  </div>
+  <div class="praxis-teil">
+    <h3 class="h3">Was dahinter steckt</h3>
+    <ul class="fall-liste">
+      <li>Läuft auf einem Server bei Hetzner in Deutschland, die Verbindung ist immer verschlüsselt.</li>
+      <li>Sicherung alle sechs Stunden, ebenfalls verschlüsselt.</li>
+      <li>Die Rechte stecken in der Datenbank selbst: Fremde Kunden bekommt niemand zu sehen, auch nicht, wer die Adresse im Browser verändert.</li>
+      <li>Jede Änderung wird mit Zeitpunkt und Person festgehalten. Gelöscht wird nichts, Korrekturen brauchen einen Grund und neue Unterschriften.</li>
+      <li>Datenschutzkonzept und Verarbeitungsverzeichnis gehören dazu, weil Gesundheitsdaten besonders geschützt sind (Artikel 9 DSGVO).</li>
+      <li>Läuft im Browser auf Handy, Tablet und PC und lässt sich wie eine App auf den Startbildschirm legen, ohne App Store.</li>
+    </ul>
+  </div>
 </div></section>
 
 <section class="section sunk" id="ablauf"><div class="wrap">
@@ -280,6 +348,7 @@
     <details><summary>Kann die Software E-Rechnungen?<i></i></summary><p>Ja. Ab 2027 (Vorjahresumsatz über 800.000 €) und ab 2028 für alle müssen Rechnungen an Firmenkunden als E-Rechnung raus. Ihre Software erstellt E-Rechnungen direkt aus dem Auftrag und kann sie auch empfangen.</p></details>
     <details><summary>Wie lange dauert das?<i></i></summary><p>Das hängt vom Umfang ab. Umgesetzt wird in Abschnitten, die Sie einzeln abnehmen. So sehen Sie früh etwas Lauffähiges und nicht erst am Ende.</p></details>
     <details><summary>Kann die Software später erweitert werden?<i></i></summary><p>Ja. Weil sie für Ihren Betrieb gebaut ist, wächst sie mit, Schritt für Schritt und nur dort, wo es sich lohnt.</p></details>
+    <details><summary>Wer kümmert sich nach dem Start?<i></i></summary><p>Ich. Updates, Sicherungen und ein Ansprechpartner, der Ihr System kennt, dazu eine Einweisung für Ihr Team direkt bei Ihnen. Die Software läuft bei einem Anbieter in Deutschland, der Vertrag läuft auf Sie.</p></details>
     <details><summary>Wie einfach ist die Software zu bedienen?<i></i></summary><p>So einfach wie möglich. Ich gestalte die Oberflächen selbst (UI- und UX-Design) und teste sie früh mit Ihrem Team. So muss sich niemand durch Menüs kämpfen.</p></details>
   </div>
 </div></section>
@@ -289,6 +358,10 @@
     <p class="eyebrow">Kontakt</p>
     <h2 class="h2">Lass uns reden</h2>
     <p class="lede">Eine halbe Stunde, kostenlos und unverbindlich. Sie erzählen, wo es klemmt, und bekommen eine ehrliche Einschätzung, was sich lohnt und was nicht. Der erste Schritt ist eine kurze Nachricht.</p>
+    <div class="direkt">
+      <a href="tel:+4915120788220"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM10.5 18h3"/></svg>0151 207 88 220</a>
+      <a href="mailto:info@bloomlogic.de"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg>info@bloomlogic.de</a>
+    </div>
   </div>
   <form class="kontakt-form" data-zeigen novalidate>
     <div class="kf-zeile">
@@ -303,7 +376,6 @@
     <label class="kf-falle" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
     <label class="kf-check"><input type="checkbox" name="einwilligung" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden. Mehr dazu in der <a href="/datenschutz">Datenschutzerklärung</a>.</span></label>
     <div class="kf-fuss"><button class="btn primaer" type="submit">Nachricht senden</button><p class="kf-status" role="status" aria-live="polite"></p></div>
-    <p class="klein">Lieber direkt? <a href="mailto:kontakt@bloomlogic.de">kontakt@bloomlogic.de</a> · bloomlogic · Braunschweig</p>
   </form>
   <div class="kontakt-chat" data-zeigen aria-hidden="true">
     <div class="mini-chat">
@@ -329,14 +401,13 @@
   <div class="weitere">
     <a href="../website-braunschweig/"><b>Websites und SEO</b><span>Eine Website, die den ersten Eindruck trägt und bei Google gefunden wird. Damit Anfragen wirklich bei Ihnen ankommen.</span></a>
     <a href="../3d-visualisierung-cad/"><b>3D-Visualisierung aus CAD</b><span>Aus Konstruktionsdaten werden Bilder und Animationen, die verkaufen. Ohne Fotostudio und ohne Musterbau.</span></a>
-    <a href="../hosting-betreuung/"><b>Hosting und Betreuung</b><span>Ein System, das niemand pflegt, ist nach einem Jahr ein Problem. Ich kümmere mich um Updates, Sicherungen und alles, was klemmt.</span></a>
   </div>
 </div></section>
 
 <hr class="linie">
 <footer><div class="wrap fuss">
   <div class="marke"><img class="nur-hell" src="../assets/logo-kopf.svg" alt="bloomlogic: Digitales Wachstum mit Logik" width="62" height="50"><img class="nur-dunkel" src="../assets/logo-kopf-dunkel.svg" alt="" aria-hidden="true" width="62" height="50"><span>© 2026 bloomlogic</span></div>
-  <nav aria-label="Leistungen"><a href="../software-handwerk-pflege/">Software</a><a href="../website-braunschweig/">Websites</a><a href="../3d-visualisierung-cad/">3D-Visualisierung</a><a href="../hosting-betreuung/">Hosting und Betreuung</a></nav>
+  <nav aria-label="Leistungen"><a href="../software-handwerk-pflege/">Software</a><a href="../website-braunschweig/">Websites</a><a href="../3d-visualisierung-cad/">3D-Visualisierung</a></nav>
   <nav aria-label="Rechtliches"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><a href="#kontakt">Kontakt</a></nav>
 </div></footer>
 </main>
