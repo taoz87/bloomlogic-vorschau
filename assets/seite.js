@@ -157,10 +157,21 @@
     if (!knopf || !menue) return;
     function setze(auf) {
       menue.classList.toggle('offen', auf); knopf.setAttribute('aria-expanded', auf ? 'true' : 'false');
+      document.documentElement.classList.toggle('menue-offen', auf);   /* Lasche am Rand ausblenden, Schalter steht dann im Menue */
       knopf.setAttribute('aria-label', auf ? 'Menü schließen' : 'Menü öffnen');
     }
     knopf.addEventListener('click', function () { setze(!menue.classList.contains('offen')); });
     menue.addEventListener('click', function (e) { if (e.target.closest('a')) setze(false); });
+    var mmThema = menue.querySelector('.mm-thema'), th = document.getElementById('thema');
+    if (mmThema && th) {
+      var mmBeschriften = function () {
+        var dunkel = document.documentElement.classList.contains('dunkel');
+        mmThema.querySelector('.mm-thema-text').textContent = dunkel ? 'Helle Ansicht' : 'Dunkle Ansicht';
+        mmThema.setAttribute('aria-label', dunkel ? 'Zur hellen Ansicht wechseln' : 'Zur dunklen Ansicht wechseln');
+      };
+      mmBeschriften(); document.addEventListener('bl-thema', mmBeschriften);
+      mmThema.addEventListener('click', function () { th.click(); });
+    }
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setze(false); });
     window.addEventListener('resize', function () { if (window.innerWidth > 820 && window.innerWidth > window.innerHeight) setze(false); });
   })();
@@ -271,20 +282,30 @@
     feld.addEventListener('click', function (e) { var l = lage(e); netz.welle(l[0], l[1]); });
     groesse(); malen();
     window.addEventListener('resize', function () { groesse(); malen(); });
+    document.addEventListener('bl-thema', malen);
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (e) { sichtbar = e[0].isIntersecting; starten(); }, { rootMargin: '100px 0px' }).observe(cv);
     }
   })();
 
-  /* Unterseiten: Hell/Dunkel-Schalter merkt die Wahl im Browser und laedt neu (die Startseite hat ihren eigenen Schalter) */
+  /* Unterseiten: Hell/Dunkel-Schalter merkt die Wahl im Browser und schaltet ohne Neuladen um, man bleibt also an
+     derselben Stelle (vorher sprang die Seite nach oben, 2026-10-11). Die Startseite hat ihren eigenen Schalter. */
   (function () {
-    var th = document.querySelector('#kopf .thema'); if (!th || document.getElementById('strecke')) return;
-    var dunkel = document.documentElement.classList.contains('dunkel');
-    th.setAttribute('aria-label', dunkel ? 'Zur hellen Ansicht wechseln' : 'Zur dunklen Ansicht wechseln'); th.title = dunkel ? 'Helle Ansicht' : 'Dunkle Ansicht';
+    var th = document.getElementById('thema'); if (!th || document.getElementById('strecke')) return;
+    function beschriften(dunkel) {
+      th.setAttribute('aria-label', dunkel ? 'Zur hellen Ansicht wechseln' : 'Zur dunklen Ansicht wechseln'); th.title = dunkel ? 'Helle Ansicht' : 'Dunkle Ansicht';
+    }
+    beschriften(document.documentElement.classList.contains('dunkel'));
     th.addEventListener('click', function () {
-      try { if (dunkel) localStorage.removeItem('bl-dunkel'); else localStorage.setItem('bl-dunkel', '1'); } catch (e) {}
-      var q = new URLSearchParams(location.search); q.delete('dunkel');
-      var such = q.toString(); location.replace(location.pathname + (such ? '?' + such : '') + location.hash);
+      var dunkel = !document.documentElement.classList.contains('dunkel');
+      document.documentElement.classList.toggle('dunkel', dunkel);
+      try { if (dunkel) localStorage.setItem('bl-dunkel', '1'); else localStorage.removeItem('bl-dunkel'); } catch (e) {}
+      if (/[?&]dunkel\b/.test(location.search)) {     /* ?dunkel aus der Adresse nehmen, ohne neu zu laden */
+        var q = new URLSearchParams(location.search); q.delete('dunkel');
+        var such = q.toString(); history.replaceState(null, '', location.pathname + (such ? '?' + such : '') + location.hash);
+      }
+      beschriften(dunkel);
+      document.dispatchEvent(new Event('bl-thema'));   /* Menuezeile und Netze ziehen nach */
     });
   })();
 
@@ -327,6 +348,7 @@
         var l = lage(e); netz.welle(l[0], l[1]); starten();
       });
       groesse(); malen();
+      document.addEventListener('bl-thema', malen);
       if ('ResizeObserver' in window) new ResizeObserver(function () { groesse(); malen(); }).observe(sek);
       else window.addEventListener('resize', function () { groesse(); malen(); });
       if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { sichtbar = e[0].isIntersecting; starten(); }, { rootMargin: '100px 0px' }).observe(sek);
@@ -540,6 +562,28 @@
      Gezeichnet wird auf eine Canvas aus vorgeladenen, dekodierten Bildern (kein Flackern beim Wechsel). Die Bremse
      wird auf 90 % der Hoehe eingepasst, damit auch die Explosionsansicht ganz hineinpasst; der Rand wird mit dem
      Verlauf der Bilder aufgefuellt, so entsteht keine Kante. */
+  /* 3D-Seite: Erklaerfilm oben laeuft stumm in Schleife, sobald die Seite geladen ist, und ruht ausserhalb des Bildschirms.
+     "Mit Ton ansehen" startet ihn von vorn mit Ton. Bei reduzierter Bewegung oder Datensparen erst auf Knopfdruck. */
+  (function () {
+    var k = document.querySelector('#seite .k-film'); if (!k) return;
+    var v = k.querySelector('video'), knopf = k.querySelector('.k-film-ton'), txt = knopf.querySelector('span');
+    var ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches || !!(navigator.connection && navigator.connection.saveData);
+    var sichtbar = true, geladen = document.readyState === 'complete';
+    function beschriften() {
+      var ton = !v.muted && !v.paused;
+      txt.textContent = ton ? 'Ton aus' : 'Mit Ton ansehen'; knopf.setAttribute('aria-pressed', ton ? 'true' : 'false');
+    }
+    function stumm() { if (!ruhig && geladen && sichtbar && v.muted) v.play().catch(function () {}); else if (!sichtbar && v.muted) v.pause(); }
+    window.addEventListener('load', function () { geladen = true; stumm(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { sichtbar = e[0].isIntersecting; stumm(); }).observe(k);
+    knopf.addEventListener('click', function () {
+      if (v.muted || v.paused) { v.muted = false; v.currentTime = 0; v.play().catch(function () {}); } else v.muted = true;
+      beschriften();
+    });
+    v.addEventListener('play', beschriften); v.addEventListener('pause', beschriften);
+    stumm(); beschriften();
+  })();
+
   var k3 = document.querySelector('#seite .k-3d');
   if (k3) {
     var bild = k3.querySelector('img'), cv = document.createElement('canvas'), cx = cv.getContext('2d');

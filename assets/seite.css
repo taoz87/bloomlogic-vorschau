@@ -21,11 +21,8 @@ html.dunkel .nur-hell { display:none !important; }
 #kopf nav a { color:var(--text2); font-size:14.8px; text-decoration:none; }
 #kopf nav a:hover { color:var(--ink); }
 #kopf .rechts { display:flex; align-items:center; gap:0.6rem; }
-#kopf .thema { display:flex; align-items:center; gap:0.45rem; padding:0.35rem 0.55rem; border:0; background:transparent; color:var(--text2); cursor:pointer; }
-#kopf .thema .spur { width:30px; height:17px; border-radius:999px; background:#F1F4F7; border:1px solid var(--rand); position:relative; }
-#kopf .thema .knopf-t { position:absolute; left:1px; top:1px; width:13px; height:13px; border-radius:50%; background:#10B48C; }
 #kopf .menue { display:none; width:40px; height:40px; border:1px solid var(--rand); border-radius:8px; background:#fff; position:relative; }
-#kopf .menue i, #kopf .menue::before, #kopf .menue::after { content:""; position:absolute; left:11px; right:11px; height:1.5px; background:var(--ink); }
+#kopf .menue i, #kopf .menue::before, #kopf .menue::after { content:""; position:absolute; left:11px; right:11px; height:1.5px; background:#000033; }
 #kopf .menue::before { top:14px; } #kopf .menue i { top:19px; } #kopf .menue::after { top:24px; }
 .btn { display:inline-flex; align-items:center; justify-content:center; border-radius:8px; font-weight:500; font-size:15.6px; line-height:1.6;
        padding:0.8rem 1.4rem; text-decoration:none; border:1px solid transparent; white-space:nowrap; font-family:'BLSans', system-ui, sans-serif; }
@@ -340,17 +337,15 @@ html.dunkel #kopf { background:rgba(8,11,18,.88); border-color:#1a2230; }
 #mobilmenue a:not(.btn) { padding:0.85rem 0.2rem; font-size:1.1rem; font-weight:500; color:var(--ink); text-decoration:none; border-bottom:1px solid #EEF2F6; }
 #mobilmenue .btn { margin-top:1.1rem; justify-self:stretch; }
 html.dunkel #mobilmenue { background:rgba(8,11,18,.97); border-color:#1a2230; }
-html.dunkel #kopf .menue { background:#111722; border-color:#202A3A; }   /* Striche (var(--ink)) sind im Dunkelmodus hell */
+html.dunkel #kopf .menue { background:#111722; border-color:#202A3A; }
+html.dunkel #kopf .menue i, html.dunkel #kopf .menue::before, html.dunkel #kopf .menue::after { background:#fff; }   /* Dunkelmodus: weisse Striche */
 html.dunkel #mobilmenue a:not(.btn) { color:#EEF2F8; border-color:#1a2230; }
 #kopf .menue::before, #kopf .menue::after, #kopf .menue i { transition:transform .3s cubic-bezier(.2,.8,.2,1), opacity .2s; }
 #kopf .menue[aria-expanded="true"] i { opacity:0; }
 #kopf .menue[aria-expanded="true"]::before { transform:translateY(5px) rotate(45deg); }
 #kopf .menue[aria-expanded="true"]::after { transform:translateY(-5px) rotate(-45deg); }
 @media (min-aspect-ratio: 1/1) and (min-width: 821px) { #mobilmenue { display:none; } }
-html.dunkel #kopf nav a, html.dunkel #kopf .thema { color:#A8B4C6; }
-#kopf .thema .knopf-t { transition:transform .25s cubic-bezier(.3,1.4,.5,1); }
-html.dunkel #kopf .thema .knopf-t { transform:translateX(13px); }
-html.dunkel #kopf .thema .spur { background:#111722; border-color:#202A3A; }
+html.dunkel #kopf nav a { color:#A8B4C6; }
 html.dunkel .btn.zweit { background:#111722; color:#EEF2F8; border-color:#202A3A; }
 html.dunkel #einladung p { color:#A8B4C6; }
 html.dunkel #einladung .nochmal { color:#A8B4C6; }
@@ -360,8 +355,6 @@ html.dunkel #einladung .nochmal:hover { color:#F5F7F6; }
   #kopf .innen { justify-content:space-between; gap:1rem; }
   #kopf .marke img { width:66px; }
   #kopf nav { display:none; }
-  #kopf .thema { padding:0.35rem 0.15rem; }   /* Handy: Hell/Dunkel-Schalter links neben "Lass uns reden", ohne Sonnen-Symbol */
-  #kopf .thema svg { display:none; }
   #kopf .menue { display:block; }
 }
 
@@ -570,11 +563,27 @@ html.dunkel #seite .fliessband { background:linear-gradient(rgba(8,11,18,.38), r
   #kopf .btn { padding:0.5rem 0.75rem; font-size:0.8rem; }
   #kopf .menue { flex:none; width:38px; height:38px; }
 }
-}
-/* Footer am Handy: Leistungen als saubere Liste, Rechtliches darunter abgesetzt */
+/* Footer: am Rechner eine Zeile Links, am Smartphone vier Kacheln, darunter Rechtliches und Copyright */
+#seite .fuss .fk-ic, #seite .fuss-copy { display:none; }
 @media (max-width:51.99rem) {
-  #seite .fuss nav[aria-label="Leistungen"] { display:grid; gap:0.8rem; }
-  #seite .fuss nav[aria-label="Rechtliches"] { gap:0.5rem 1.5rem; padding-top:1.3rem; border-top:1px solid var(--rule); font-size:0.85rem; }
+  #seite footer { padding-block:2rem 2.4rem; }
+  #seite .fuss { grid-template-columns:1fr; gap:1.4rem; }
+  #seite .fuss .marke { justify-content:center; }
+  #seite .fuss .marke img { width:72px; }
+  #seite .fuss .marke span { display:none; }
+  #seite .fuss-kacheln { container:fk / inline-size; display:grid !important; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:0.7rem; }
+  #seite .fuss .fuss-kacheln a { display:flex; align-items:center; gap:0.7rem; min-width:0; padding:0.85rem 0.9rem; border:1px solid var(--rule); border-radius:14px;
+                           background:var(--surface); color:var(--ink); font-weight:500; white-space:normal; line-height:1.25; }
+  #seite .fuss .fuss-kacheln a span { min-width:0; overflow-wrap:anywhere; }
+  #seite .fuss .fk-ic { display:block; flex:none; width:34px; height:34px; padding:8px; border-radius:10px; background:#E6F7EF;
+                        fill:none; stroke:#10B48C; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  html.dunkel #seite .fuss .fk-ic { background:#0E2A22; stroke:#3EE06B; }
+  #seite .fuss nav[aria-label="Rechtliches"] { justify-content:center; gap:0.5rem 1.6rem; padding-top:1.2rem; border-top:1px solid var(--rule); font-size:0.88rem; }
+  #seite .fuss-copy { display:block; margin:-0.6rem 0 0; text-align:center; font-size:0.8rem; color:var(--faint); }
+}
+/* Wenig Platz (grosse Systemschrift, schmales Smartphone): Symbol ueber den Text, damit nichts getrennt wird */
+@container fk (max-width:24em) {
+  #seite .fuss .fuss-kacheln a { flex-direction:column; align-items:flex-start; gap:0.55rem; padding:0.85rem 0.9rem 0.95rem; }
 }
 
 /* Fliessband am Handy: Schilder in den Ecken, Linien zu den Stationen (fliessband.js setzt die Linien je Bild) */
@@ -717,10 +726,7 @@ a.probe-bild:hover img { transform:scale(1.03); }
 #seite .ueber-netz { position:absolute; inset:0; width:100%; height:100%; z-index:0; display:block; }
 #seite .ueber-foto { cursor:pointer; user-select:none; -webkit-user-select:none; }
 #seite .ueber-foto img { pointer-events:none; -webkit-user-drag:none; }
-#seite .ueber-foto figcaption i { font-style:normal; }
-/* Handy: Ort in eine eigene Zeile statt aus der Karte heraus */
-@media (max-width:51.99rem) { #seite .ueber-foto figcaption { padding:0.65rem 1.1rem; } #seite .ueber-foto figcaption span { font-size:0.8rem; }
-  #seite .ueber-foto figcaption .ort { display:block; } #seite .ueber-foto figcaption .ort i { display:none; } }
+@media (max-width:51.99rem) { #seite .ueber-foto figcaption { padding:0.65rem 1.1rem; } #seite .ueber-foto figcaption span { font-size:0.8rem; } }
 
 /* Leistungen: Betreuung als Leiste unter den drei Karten (gehoert zu jeder Leistung) */
 #seite .betreuung-leiste { display:flex; gap:1.1rem; align-items:flex-start; margin-top:1rem; padding:clamp(1.2rem, 3vw, 1.6rem) clamp(1.2rem, 3vw, 2rem);
@@ -751,3 +757,251 @@ html.dunkel #seite .betreuung-leiste { background:#0E2A22; border-color:#174536;
                          background:var(--verlauf); -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
                          font-variant-numeric:tabular-nums; }
 #seite .ueber-zahlen li > span { color:var(--soft); font-size:0.92rem; line-height:1.45; }
+
+/* ---- Ratgeber (2026-10-09): Uebersicht und Artikel ------------------------------------------------------------- */
+#seite .ratgeber-raster { display:grid; gap:1rem; grid-template-columns:repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
+#seite .ratgeber-karte { display:grid; gap:0.7rem; align-content:start; padding:clamp(1.3rem, 3vw, 1.8rem); background:var(--surface);
+                         border:1px solid var(--rule); border-radius:16px; color:inherit; text-decoration:none; transition:border-color .2s; }
+#seite .ratgeber-karte:hover { border-color:var(--accent-soft); }
+#seite .ratgeber-karte .eyebrow { color:var(--faint); letter-spacing:0.06em; }
+#seite .ratgeber-hinweis { display:grid; gap:0.35rem; margin-top:1.4rem; padding:1.1rem 1.25rem; border-radius:14px; background:#E6F7EF;
+                           border:1px solid #CDEEDD; color:var(--ink); text-decoration:none; }
+html.dunkel #seite .ratgeber-hinweis { background:#0E2A22; border-color:#174536; }
+#seite .ratgeber-hinweis b { font-weight:600; line-height:1.35; }
+#seite .faq p a { color:var(--accent); text-underline-offset:3px; }
+
+#seite .artikel { padding-top:clamp(2.5rem, 7vw, 4.5rem); }
+#seite .artikel-wrap { max-width:46rem; }
+#seite .artikel .h1 { margin:0.6rem 0 1.2rem; font-size:clamp(1.9rem, 5vw, 2.9rem); }
+#seite .artikel h2 { font-size:clamp(1.35rem, 3vw, 1.7rem); font-weight:600; letter-spacing:-0.015em; line-height:1.2; margin:2.6rem 0 0.9rem; color:var(--ink); }
+#seite .artikel p, #seite .artikel li { color:var(--soft); font-size:1.03rem; line-height:1.7; }
+#seite .artikel p + p { margin-top:0.9rem; }
+#seite .artikel strong { color:var(--ink); font-weight:600; }
+#seite .artikel-autor { display:flex; align-items:center; gap:0.8rem; padding-bottom:1.4rem; border-bottom:1px solid var(--rule); }
+#seite .artikel-autor img { width:48px; height:48px; border-radius:50%; object-fit:cover; object-position:50% 8%; background:var(--sunk); }
+#seite .artikel-autor div { display:grid; gap:0.1rem; }
+#seite .artikel-autor b { font-weight:600; color:var(--ink); }
+#seite .artikel-autor span { font-size:0.88rem; color:var(--faint); }
+#seite .artikel-kurz { margin-top:1.8rem; padding:1.3rem 1.5rem; border-radius:16px; background:#E6F7EF; border:1px solid #CDEEDD; }
+html.dunkel #seite .artikel-kurz { background:#0E2A22; border-color:#174536; }
+#seite .artikel-kurz ul { display:grid; gap:0.55rem; margin-top:0.7rem; list-style:none; }
+#seite .artikel-kurz li { position:relative; padding-left:1.4rem; color:var(--ink); }
+#seite .artikel-kurz li::before { content:""; position:absolute; left:0; top:0.62em; width:0.55rem; height:0.55rem; border-radius:0.14rem; background:linear-gradient(135deg, #00DF3A, #13AD9C); }
+#seite .artikel-liste { display:grid; gap:0.6rem; margin-top:0.9rem; padding-left:1.2rem; }
+#seite .zeitplan { width:100%; border-collapse:collapse; margin-top:0.4rem; font-size:1rem; }
+#seite .zeitplan th, #seite .zeitplan td { text-align:left; vertical-align:top; padding:0.85rem 0.9rem; border-bottom:1px solid var(--rule); line-height:1.55; }
+#seite .zeitplan th { width:12rem; font-weight:600; color:var(--ink); white-space:nowrap; }
+#seite .zeitplan td { color:var(--soft); }
+@media (max-width:36rem) { #seite .zeitplan th, #seite .zeitplan td { display:block; width:auto; padding:0.2rem 0; border:0; }
+                           #seite .zeitplan tr { display:block; padding:0.8rem 0; border-bottom:1px solid var(--rule); } }
+#seite .checkliste { display:grid; gap:0.8rem; margin-top:0.6rem; padding:0; list-style:none; counter-reset:schritt; }
+#seite .checkliste li { position:relative; padding-left:2.6rem; counter-increment:schritt; }
+#seite .checkliste li::before { content:counter(schritt); position:absolute; left:0; top:0.1em; display:grid; place-items:center; width:1.8rem; height:1.8rem;
+                                border-radius:0.5rem; background:#E6F7EF; color:#0B5F43; font-weight:600; font-size:0.9rem; }
+html.dunkel #seite .checkliste li::before { background:#0E2A22; color:#9FE9C8; }
+#seite .artikel-weiter { display:flex; flex-wrap:wrap; gap:0.7rem; margin-top:2rem; }
+#seite .artikel-faq { margin-top:0.4rem; }
+#seite .artikel-quellen { margin-top:2.6rem; padding-top:1.4rem; border-top:1px solid var(--rule); }
+#seite .artikel-quellen ul { display:grid; gap:0.4rem; margin:0.6rem 0 1rem; padding-left:1.1rem; }
+#seite .artikel-quellen li, #seite .artikel-quellen p { font-size:0.9rem; }
+#seite .artikel-quellen a { color:var(--accent); text-underline-offset:3px; }
+
+/* ---- Hell/Dunkel als Lasche am rechten Bildschirmrand (Rechner und Smartphone), ragt leicht aus dem Rand ---------- */
+#thema { position:fixed; right:0; top:50%; z-index:9; display:flex; flex-direction:column; align-items:center; gap:0.55rem;
+         padding:0.75rem 0.7rem 0.8rem 0.75rem; transform:translate(4px, -50%); border:1px solid var(--rand); border-right:0;
+         border-radius:16px 0 0 16px; background:rgba(251,252,253,.92); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+         box-shadow:-8px 10px 28px rgba(0,0,51,.12); color:var(--text2); cursor:pointer; font:inherit;
+         transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s; }
+#thema:hover { transform:translate(0, -50%); box-shadow:-10px 12px 32px rgba(0,0,51,.16); }
+#thema:focus-visible { outline:2px solid #10B48C; outline-offset:3px; }
+#thema svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+#thema .mond { display:none; }
+#thema .spur { position:relative; width:17px; height:30px; border-radius:999px; background:#F1F4F7; border:1px solid var(--rand); }
+#thema .knopf-t { position:absolute; left:1px; top:1px; width:13px; height:13px; border-radius:50%; background:#10B48C;
+                  transition:transform .25s cubic-bezier(.3,1.4,.5,1); }
+html.dunkel #thema { background:rgba(17,23,34,.92); border-color:#202A3A; color:#A8B4C6; box-shadow:-8px 10px 28px rgba(0,0,0,.4); }
+html.dunkel #thema .sonne { display:none; }
+html.dunkel #thema .mond { display:block; }
+html.dunkel #thema .spur { background:#0B0F17; border-color:#202A3A; }
+html.dunkel #thema .knopf-t { transform:translateY(13px); }
+@media (max-width:40rem) { #thema { padding:0.6rem 0.55rem 0.65rem 0.6rem; gap:0.45rem; } }
+/* Rechner: groesser und weiter im Bild, damit man die Lasche wahrnimmt */
+@media (min-width:52rem) {
+  #thema { padding:1rem 1.05rem 1.05rem 1.1rem; gap:0.7rem; transform:translate(0, -50%); border-radius:18px 0 0 18px;
+           box-shadow:-10px 12px 32px rgba(0,0,51,.16); }
+  #thema:hover { transform:translate(-4px, -50%); }
+  #thema svg { width:21px; height:21px; }
+  #thema .spur { width:21px; height:38px; }
+  #thema .knopf-t { width:17px; height:17px; }
+  html.dunkel #thema .knopf-t { transform:translateY(17px); }
+}
+@media (prefers-reduced-motion: reduce) { #thema, #thema .knopf-t { transition:none; } }
+
+/* ---- Smartphone-Korrekturen 2026-10-10 ------------------------------------------------------------------------- */
+/* Offenes Menue: Lasche am Rand weg, dafuer eine Zeile "Dunkle Ansicht" unter den Leistungen */
+html.menue-offen #thema { opacity:0; pointer-events:none; transform:translate(100%, -50%); }
+#mobilmenue .mm-thema { display:flex; justify-content:space-between; align-items:center; width:100%; padding:0.85rem 0.2rem; border:0;
+                        border-bottom:1px solid #EEF2F6; background:none; font:inherit; font-size:1.1rem; font-weight:500; color:var(--ink); cursor:pointer; text-align:left; }
+html.dunkel #mobilmenue .mm-thema { color:#EEF2F8; border-color:#1a2230; }
+#mobilmenue .mm-thema .spur { position:relative; flex:none; width:34px; height:19px; border-radius:999px; background:#F1F4F7; border:1px solid var(--rand); }
+#mobilmenue .mm-thema .knopf-t { position:absolute; left:2px; top:2px; width:13px; height:13px; border-radius:50%; background:#10B48C; transition:transform .25s cubic-bezier(.3,1.4,.5,1); }
+html.dunkel #mobilmenue .mm-thema .spur { background:#0B0F17; border-color:#202A3A; }
+html.dunkel #mobilmenue .mm-thema .knopf-t { transform:translateX(15px); }
+/* Gruene Leisten (Zettel-Bruecke, "Und danach?"): auf dem Smartphone Symbol ueber dem Text, Text ueber die volle Breite */
+@media (max-width:40rem) {
+  #seite .betreuung-leiste { flex-direction:column; gap:0.8rem; padding:1.15rem 1.15rem 1.25rem; }
+  #seite .betreuung-leiste .ic { width:40px; height:40px; }
+  #seite .betreuung-leiste .ic svg { width:22px; height:22px; }
+}
+/* Eckdaten-Kacheln: lange Woerter trennen statt aus der Kachel zu laufen */
+#seite .ueber-zahlen li { min-width:0; }
+#seite .ueber-zahlen li > span { hyphens:auto; -webkit-hyphens:auto; hyphenate-limit-chars:10 4 4; overflow-wrap:break-word; }   /* nur lange Woerter trennen */
+@media (max-width:40rem) {
+  #seite .ueber-zahlen { gap:0.7rem; }
+  #seite .ueber-zahlen li { padding:1rem 0.9rem; }
+  #seite .ueber-zahlen b { font-size:2rem; }
+  #seite .ueber-zahlen li > span { font-size:0.85rem; }
+}
+
+/* ---- Verbesserungen aus dem Rat 2026-10-11 ------------------------------------------------------------------- */
+/* Kopf: am Smartphone nur "Erstgespraech", sonst passt der Knopf nicht neben Logo und Menue */
+@media (max-width:40rem) { #kopf .btn-lang { display:none; } }
+/* Film von der Startseite als Video bei den Arbeitsproben (3D-Seite) */
+#seite .probe-video video { display:block; width:100%; height:100%; object-fit:cover; background:#05070d; }
+
+/* ---- Preise auf den Leistungsseiten (2026-10-11) ---------------------------------------------------------- */
+#seite .preisliste { display:grid; border:1px solid var(--rule); border-radius:16px; background:var(--surface); overflow:hidden; }
+#seite .pz { display:flex; align-items:center; justify-content:space-between; gap:1.5rem; padding:1.15rem 1.5rem; }
+#seite .pz + .pz { border-top:1px solid var(--rule); }
+#seite .pz-text { min-width:0; }
+#seite .pz-text .h3 { font-size:1.08rem; }
+#seite .pz-text p { margin-top:0.25rem; color:var(--soft); font-size:0.95rem; line-height:1.5; max-width:44rem; }
+#seite .pz-preis { flex:none; text-align:right; font-size:1.3rem; font-weight:600; color:var(--ink); white-space:nowrap; letter-spacing:-0.01em; }
+#seite .pz-preis small { font-size:0.62em; font-weight:400; color:var(--soft); letter-spacing:0; }
+#seite .pz-preis.wort { font-size:1rem; font-weight:500; white-space:normal; max-width:11rem; }
+#seite .preis-fuss { margin-top:1rem; font-size:0.88rem; color:var(--faint); }
+#seite #preise + #ablauf { border-top:1px solid var(--rule); }   /* zwei graue Abschnitte nacheinander: Linie dazwischen */
+@media (max-width:36rem) {
+  #seite .pz { flex-direction:column; align-items:flex-start; gap:0.45rem; padding:1rem 1.1rem; }
+  #seite .pz-preis, #seite .pz-preis.wort { text-align:left; max-width:none; }
+}
+
+/* ---- 3D-Seite: Erklaerfilm im Kopfbereich (2026-10-11) ------------------------------------------------------ */
+#seite .kachel.k-film { display:block; padding:0; gap:0; aspect-ratio:16 / 9; background:#EFE9F5; border:0; }
+#seite .k-film video { display:block; width:100%; height:100%; object-fit:cover; }
+#seite .k-film-ton { position:absolute; left:0.9rem; bottom:0.9rem; display:inline-flex; align-items:center; gap:0.5rem; padding:0.55rem 0.95rem;
+                     border:0; border-radius:999px; background:rgba(0,0,51,.8); color:#fff; font:inherit; font-size:0.85rem; font-weight:500; cursor:pointer;
+                     transition:background .2s; }
+#seite .k-film-ton:hover { background:rgba(0,0,51,.95); }
+#seite .k-film-ton svg { width:17px; height:17px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+#seite .k-film-ton[aria-pressed="false"] .welle { opacity:.35; }
+
+/* ---- Websites-Seite: Referenz DK Umzug im Kopfbereich (2026-10-11) ------------------------------------------- */
+#seite .kachel.k-web { display:block; padding:0; gap:0; background:var(--surface); border:1px solid var(--rule); }
+#seite .k-web .kw-feld { position:relative; aspect-ratio:16 / 10.5; padding:2rem 0 0 2rem; overflow:hidden;   /* Rechner-Ansicht unten angeschnitten */
+                         background:color-mix(in srgb, var(--ref) 24%, var(--surface)); }
+#seite .kw-browser { width:90%; overflow:hidden; border-radius:10px 10px 0 0; background:#fff; border:1px solid rgba(0,0,51,.08);
+                     box-shadow:0 18px 40px rgba(0,0,51,.18); }
+#seite .kw-leiste { display:flex; align-items:center; gap:5px; height:24px; padding:0 10px; background:#F1F3F6; border-bottom:1px solid rgba(0,0,51,.06); }
+#seite .kw-leiste i { width:7px; height:7px; border-radius:50%; background:#D3D9E0; }
+#seite .kw-leiste em { margin-left:10px; padding:2px 12px; border-radius:999px; background:#fff; font-style:normal; font-size:10.5px; color:#7B869C; }
+#seite .kw-browser img { display:block; width:100%; height:auto; }
+#seite .k-web .handy-rahmen { position:absolute; right:1.4rem; top:3.2rem; width:24%; padding:3px; }
+#seite .kw-titel { padding:0.9rem 1.25rem; font-size:0.9rem; color:var(--soft); }
+#seite .kw-titel b { color:var(--ink); font-weight:600; }
+@media (max-width:40rem) { #seite .k-web .kw-feld { padding:1.4rem 0 0 1.4rem; } #seite .k-web .handy-rahmen { right:1rem; top:2.4rem; padding:2px; } }
+
+/* ---- Showcase-Wand bei den Referenzen (2026-10-12, Markup von wand.py) ----------------------------------------
+   Volle Breite, Spalten laufen abwechselnd hoch und runter, Blick fast von oben, leicht gedreht. Hoechstens 4 Spalten
+   am Rechner, 3 am Smartphone. Oben und unten weich ausgeblendet. Ausserhalb des Bildschirms ruht sie (.ruht). */
+#seite #referenzen { overflow-x:clip; }
+#seite .wand-band { position:relative; left:50%; translate:-50% 0; width:100vw; height:clamp(26rem, 44vw, 38rem); overflow:hidden;
+                    margin-top:clamp(2.5rem, 5vw, 4rem);
+                    -webkit-mask-image:linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+                            mask-image:linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); }
+#seite .wand { position:absolute; left:50%; top:50%; width:112%; height:150%; display:grid; grid-template-columns:repeat(4, minmax(0, 1fr));
+               gap:18px; transform:translate(-50%, -50%) rotate(-9deg); }
+#seite .wand-spalte { overflow:hidden; }
+#seite .wand-lauf { display:flex; flex-direction:column; gap:18px; animation:wand-hoch var(--dauer) linear infinite; }
+#seite .wand-spalte:nth-child(even) .wand-lauf { animation-name:wand-runter; }
+/* Inhalt steht dreimal untereinander: um ein Drittel (plus ein Drittel Abstand) verschieben, dann nahtlos von vorn */
+@keyframes wand-hoch { from { transform:translateY(0); } to { transform:translateY(calc(-100% / 3 - 6px)); } }
+@keyframes wand-runter { from { transform:translateY(calc(-100% / 3 - 6px)); } to { transform:translateY(0); } }
+#seite .wk { position:relative; aspect-ratio:16 / 11; overflow:hidden; margin:0; border-radius:12px; padding:7% 0 0 7%;
+             background:color-mix(in srgb, var(--ref) 30%, var(--surface)); box-shadow:0 10px 30px rgba(0,0,51,.14); }
+#seite .wk .r { display:block; width:84%; height:auto; border-radius:6px 6px 0 0; box-shadow:0 10px 24px rgba(0,0,51,.18); }
+#seite .wk .s { position:absolute; right:5%; top:12%; width:22%; padding:2px; border-radius:11.5% / 6.2%; background:#15171E;
+                box-shadow:inset 0 0 0 1px rgba(255,255,255,.16), 0 10px 24px rgba(0,0,51,.25); }
+#seite .wk .s img { display:block; width:100%; height:auto; border-radius:10% / 5.4%; }
+/* 3D und Film: randloses Bild */
+#seite .wk.wb { padding:0; background:var(--sunk); }
+#seite .wk.wb img { display:block; width:100%; height:100%; object-fit:cover; }
+/* Textkarten: eigene Klassen (wt), denn .text und .dunkel sind auf der Startseite schon vergeben (Film, Dunkelmodus) */
+#seite .wk.wt { display:flex; align-items:center; justify-content:center; padding:8%; text-align:center; background:#000033; color:#fff; }
+#seite .wk.wt p { font-size:clamp(1.15rem, 2.5vw, 2.35rem); font-weight:600; line-height:1.1; letter-spacing:-0.025em; color:inherit; }
+#seite .wk.wt p::before { content:""; display:block; width:0.38em; height:0.38em; margin:0 auto 0.55em; border-radius:0.1em; background:#10B48C; }
+#seite .wk.wt-hell { background:var(--surface); color:var(--ink); }
+#seite .wk.wt-mint { background:#E6F7EF; color:#000033; }
+html.dunkel #seite .wk.wt-dunkel { background:#10B48C; color:#fff; }
+html.dunkel #seite .wk.wt-dunkel p::before { background:#fff; }
+html.dunkel #seite .wk.wt-mint { background:#0E2A22; color:#EEF2F8; }
+@media (max-width:48rem) {
+  #seite .wand-band { height:24rem; }
+  #seite .wand { width:150%; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; }
+  #seite .wand-lauf { gap:12px; }
+  #seite .wand-spalte:nth-child(n+4) { display:none; }
+  #seite .wk { border-radius:8px; }
+  @keyframes wand-hoch { to { transform:translateY(calc(-100% / 3 - 4px)); } }
+  @keyframes wand-runter { from { transform:translateY(calc(-100% / 3 - 4px)); } }
+}
+@media (prefers-reduced-motion: reduce) { #seite .wand-lauf { animation:none; } }
+/* Unter der Wand: wer zu sehen ist, und der Weg zu den ausfuehrlichen Website-Referenzen */
+#seite .wand-fuss { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem 2rem; margin-top:clamp(1.5rem, 3vw, 2.25rem); }
+#seite .wand-fuss p { max-width:40rem; color:var(--soft); }
+#seite .wand-fuss b { color:var(--ink); font-weight:600; }
+
+/* ---- Aus Zetteln werden Daten: schneller (Tahsin, 2026-10-12) ---------------------------------------------------
+   Vorher kam die System-Karte erst 0,8 s nach dem Zettel. Jetzt: Kreuz und System-Karte fast gleichzeitig mit dem Zettel,
+   Reihe fuer Reihe um 80 ms versetzt. */
+#seite .alltag li { --v:0s; }
+#seite .alltag li:nth-child(2) { --v:.08s; }
+#seite .alltag li:nth-child(3) { --v:.16s; }
+#seite .alltag li:nth-child(4) { --v:.24s; }
+#seite .alltag li[data-zeigen] { transition-duration:.4s; }
+#seite .alltag .kreuz path { transition:stroke-dashoffset .2s cubic-bezier(.6,0,.3,1) calc(var(--v) + .1s); }
+#seite .alltag .kreuz path + path { transition-delay:calc(var(--v) + .22s); }
+#seite .alltag .nachher { transition:opacity .35s ease calc(var(--v) + .28s), transform .45s cubic-bezier(.2,.8,.2,1) calc(var(--v) + .28s); }
+
+/* ---- Symbole auf den Leistungskarten der Unterseiten (2026-10-12), Stil wie die Leistungskarten der Startseite ---- */
+#seite .card .k-ic { display:grid; place-items:center; width:44px; height:44px; margin-bottom:0.35rem; border-radius:12px; background:#E6F7EF; }
+#seite .card .k-ic svg { width:23px; height:23px; fill:none; stroke:#10B48C; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+html.dunkel #seite .card .k-ic { background:#0E2A22; }
+html.dunkel #seite .card .k-ic svg { stroke:#3EE06B; }
+
+/* ---- Referenzen Startseite (2026-10-13, Tahsin: Wand war zu viel Spielerei) --------------------------------------
+   Betreuungsvoll gross, darunter drei gleich grosse Karten: Website, 3D, Erklaerfilm. Medien einheitlich 16:9. */
+#seite .ref-drei { display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(18rem, 1fr)); margin-top:1rem; }
+#seite .ref-drei .ref-geraetefeld { height:auto; aspect-ratio:16 / 9; }
+#seite .ref-karte > .probe-bild { margin-inline:0; }
+
+/* ---- Fliessband: Standbild sofort sichtbar, bis die 3D-Szene geladen ist, und als Ersatz, falls 3D auf einem Geraet
+   nicht startet (vorher blieb die Flaeche leer gruen bzw. verschwand ganz). Blendet weich aus, sobald .bereit (2026-10-14) */
+#seite .fliessband::before { content:""; position:absolute; inset:0; z-index:0; background:url("fliessband-breit.webp") center / cover no-repeat;
+                             transition:opacity .9s cubic-bezier(.2,.7,.2,1); }
+#seite .fliessband canvas { position:relative; z-index:1; }
+#seite .fliessband.bereit::before { opacity:0; }
+#seite .fliessband.ohne-3d { display:block; }
+html.dunkel #seite .fliessband::before { background-image:linear-gradient(rgba(8,11,18,.38), rgba(8,11,18,.38)), url("fliessband-breit.webp"); }
+@media (max-width:45rem) {
+  #seite .fliessband::before { background-image:url("fliessband-schmal.webp"); }
+  html.dunkel #seite .fliessband::before { background-image:linear-gradient(rgba(8,11,18,.38), rgba(8,11,18,.38)), url("fliessband-schmal.webp"); }
+}
+
+/* ---- 3D-Seite: Erklaerfilm-Konzept (2026-10-15) ---------------------------------------------------------------- */
+#seite .konzept-liste { margin-top:1.1rem; }
+#seite .konzept-hinweis { margin-top:1rem; font-size:0.88rem; color:var(--faint); }
+#seite .konzept-film { margin:0; border-radius:16px; box-shadow:0 18px 40px rgba(0,0,51,.16); }
+@media (min-width:52rem) { #seite #konzeptfilm .ueber-raster { grid-template-columns:minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+
+/* Fliessband-Ersatzvideo ohne WebGL (fliessband.js, 2026-10-15): liegt ueber dem Standbild, unter einer spaet startenden 3D-Szene */
+#seite .fliessband .fb-video { position:absolute; inset:0; z-index:0; width:100%; height:100%; object-fit:cover; display:block; }
