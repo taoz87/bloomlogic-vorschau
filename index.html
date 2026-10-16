@@ -878,7 +878,7 @@
       <a class="ref-link" href="website-braunschweig/#referenzen">Alle Website-Referenzen</a>
     </article>
     <article class="ref-karte" data-zeigen style="transition-delay:90ms">
-      <div class="probe-bild probe-video"><video controls preload="none" playsinline poster="assets/referenzen/film-elektroantrieb.jpg" width="1280" height="720" aria-label="Elektroantrieb im Detail: 3D-Erklärfilm"><source src="assets/referenzen/film-elektroantrieb.mp4" type="video/mp4"></video></div>
+      <div class="probe-bild probe-video"><video controls preload="none" playsinline poster="assets/referenzen/film-elektroantrieb.jpg?v=2" width="1280" height="720" aria-label="Elektroantrieb im Detail: 3D-Erklärfilm"><source src="assets/referenzen/film-elektroantrieb.mp4?v=2" type="video/mp4"></video></div>
       <p class="eyebrow">3D-Erklärfilm · Konzept</p>
       <h3 class="h3">Elektroantrieb im Detail</h3>
       <p class="body">Batterie, Laden, Kühlung und Motor eines E-SUV in 90 Sekunden: Röntgenblick durch die Karosserie, Batteriemodul in Explosionsdarstellung, Schnitt durch den Elektromotor.</p>
@@ -1398,19 +1398,22 @@
   var VORAUS = SPARSAM ? 90 : 64, ZURUECK = SPARSAM ? 20 : 24;   /* Fenster um die aktuelle Stelle */
   var START_N = 20, PARALLEL = 6, status = new Uint8Array(GESAMT + 1), wunsch = 0, reihe = [], reiheI = 0, laufend = 0;
   var MASS = null, gestartet = false, startFertig = null;
+  var GEN = 0, altBilder = null, altStatus = null;   /* Hell/Dunkel-Wechsel: neue Generation, alte Serie als Ersatz */
   function laden(fertig) {
     startFertig = fertig;
+    var g = GEN;
     var weiter = function () {
+      if (g !== GEN) return;
       var probe = new Image();                      /* AVIF da und lesbar? sonst JPEG */
-      probe.onload = function () { if (probe.naturalWidth) ENDUNG = '.avif'; ladenStart(); };
-      probe.onerror = function () { ladenStart(); };
+      probe.onload = function () { if (g !== GEN) return; if (probe.naturalWidth) ENDUNG = '.avif'; ladenStart(); };
+      probe.onerror = function () { if (g === GEN) ladenStart(); };
       probe.src = PFAD + nr(1) + '.avif' + BILD_V;
     };
     /* Gibt es die Hochformat-Serie (noch) nicht, die Querformat-Serie nehmen */
     if (HOCH) {
       var hoch = new Image();
       hoch.onload = weiter;
-      hoch.onerror = function () { PFAD = PFAD.replace('_hoch', ''); weiter(); };
+      hoch.onerror = function () { if (g !== GEN) return; PFAD = PFAD.replace('_hoch', ''); weiter(); };
       hoch.src = PFAD + nr(1) + ENDUNG + BILD_V;
     } else weiter();
   }
@@ -1438,6 +1441,7 @@
     img.onload = img.onerror = function () {
       status[i] = img.naturalWidth ? 2 : 3; laufend--; geladen++;
       if (!MASS && img.naturalWidth) MASS = [img.naturalWidth, img.naturalHeight];
+      if (altBilder && geladen >= 40) altBilder = altStatus = null;   /* neue Serie steht rund um die Stelle: alte freigeben */
       if (!gestartet) {
         if (status[1] >= 2 || geladen >= START_N) { gestartet = true; startFertig(); }   /* erstes Bild da: zeichnen */
       } else if (Math.abs(i - wunsch) <= 2) rendern(ist);       /* das gewuenschte Bild ist da: neu zeichnen */
@@ -1449,12 +1453,33 @@
   /* Bild i, oder das naechste schon geladene (rueckwaerts zuerst) */
   function bild(i) {
     if (status[i] === 2) return bilder[i];
+    if (altStatus) {                                /* gerade umgeschaltet: neues Bild in der Naehe, sonst das alte hier */
+      for (var n = 1; n <= 4; n++) {
+        if (i - n >= 1 && status[i - n] === 2) return bilder[i - n];
+        if (i + n <= GESAMT && status[i + n] === 2) return bilder[i + n];
+      }
+      if (altStatus[i] === 2) return altBilder[i];
+    }
     for (var d = 1; d < GESAMT; d++) {
       var a = i - d, b = i + d;
       if (a >= 1 && status[a] === 2) return bilder[a];
       if (b <= GESAMT && status[b] === 2) return bilder[b];
     }
     return null;
+  }
+  /* Andere Bildserie (hell/dunkel) ab der aktuellen Stelle laden; was die alte Serie schon hat, bleibt bis dahin stehen */
+  function serieWechseln() {
+    GEN++;
+    for (var i = 1; i <= GESAMT; i++) if (status[i] === 1 && bilder[i]) {   /* offene Anfragen abbrechen, Leitungen frei */
+      bilder[i].onload = bilder[i].onerror = null; bilder[i].removeAttribute('src'); status[i] = 0;
+    }
+    altBilder = bilder; altStatus = status;
+    bilder = new Array(GESAMT + 1); status = new Uint8Array(GESAMT + 1);
+    reihe = []; reiheI = 0; laufend = 0; geladen = 0; ENDUNG = '.jpg';
+    gestartet = true;                               /* gleich mit der Stelle anfangen, nicht mit Bild 1 */
+    PFAD = 'frames' + (HOCH ? '_hoch' : '') + (DUNKEL ? '_dunkel' : '') + (TEST ? '_test' : '') + '/f_';
+    schwarm = null;
+    laden(function () { rendern(ist); });
   }
   function wuenschen(i) { if (i !== wunsch) { wunsch = i; if (gestartet) pumpe(); } }
 
@@ -2118,27 +2143,27 @@
   window.addEventListener('scroll', function () { ziel = fortschritt(); anstossen(); endePruefen(); }, { passive: true });
   window.addEventListener('resize', function () { kornBasis = null; einpassen(); ziel = ist = fortschritt(); rendern(ist); });
   window.addEventListener('keydown', function (e) { if (e.key === 'd') hud.classList.toggle('aus'); });
-  /* Hell/Dunkel: die Seite laedt mit ?dunkel neu. Vorher merkt sie sich die Stelle (im Film den Fortschritt, im
-     fertigen Hero die Scrollhoehe, in der Webseite den Abschnitt und seinen Abstand zum Fensterrand) und stellt sie
-     nach dem Laden wieder her, man liest also genau dort weiter. */
-  if (DUNKEL) { var th = document.getElementById('thema'); th.setAttribute('aria-label', 'Zur hellen Ansicht wechseln'); th.title = 'Helle Ansicht'; }
+  /* Hell/Dunkel ohne Neuladen (2026-10-16). Vorher lud die Seite mit ?dunkel neu und stellte die Stelle wieder her; auf
+     langsamen Geraeten ruckelte das 3 bis 5 s (Seite, Skripte und 3D-Fliessband jedes Mal neu). Jetzt wechseln die Farben
+     sofort, der Film holt die andere Bildserie ab der aktuellen Stelle nach, das 3D-Fliessband und die Netze folgen der
+     Klasse bzw. dem Ereignis bl-thema. Die Wahl merkt sich der Browser (bl-dunkel), ohne Speicher steht sie in der Adresse. */
+  function themaBeschriften() {
+    var th = document.getElementById('thema');
+    th.setAttribute('aria-label', DUNKEL ? 'Zur hellen Ansicht wechseln' : 'Zur dunklen Ansicht wechseln'); th.title = DUNKEL ? 'Helle Ansicht' : 'Dunkle Ansicht';
+  }
+  if (DUNKEL) themaBeschriften();
   document.getElementById('thema').addEventListener('click', function () {
-    var lage = null, kopfH = document.getElementById('kopf').offsetHeight, sr = strecke.getBoundingClientRect();
-    if (!abgespielt && sr.bottom > window.innerHeight * 0.5) lage = { art: 'film', p: fortschritt() };
-    else if (abgespielt && sr.bottom > kopfH + 10) lage = { art: 'schluss', y: window.scrollY };
-    else {
-      var teile = document.querySelectorAll('#seite > *');
-      for (var i = 0; i < teile.length; i++) {
-        var r = teile[i].getBoundingClientRect();
-        if (r.bottom > kopfH) { lage = { art: 'seite', i: i, ab: r.top }; break; }
-      }
-    }
-    try { sessionStorage.setItem('bl-lage', JSON.stringify(lage)); } catch (e) {}
-    var q = new URLSearchParams(location.search);
-    if (DUNKEL) q.delete('dunkel'); else q.set('dunkel', '');
-    try { if (DUNKEL) localStorage.removeItem('bl-dunkel'); else localStorage.setItem('bl-dunkel', '1'); } catch (e) {}
+    DUNKEL = !DUNKEL;
+    document.documentElement.classList.toggle('dunkel', DUNKEL);
+    var gemerkt = true;
+    try { if (DUNKEL) localStorage.setItem('bl-dunkel', '1'); else localStorage.removeItem('bl-dunkel'); } catch (e) { gemerkt = false; }
+    var q = new URLSearchParams(location.search); q.delete('dunkel'); if (DUNKEL && !gemerkt) q.set('dunkel', '');
     var such = q.toString().replace(/=(&|$)/g, '$1');
-    location.replace(location.pathname + (such ? '?' + such : '') + location.hash);
+    if (such !== location.search.replace(/^\?/, '')) history.replaceState(null, '', location.pathname + (such ? '?' + such : '') + location.hash);
+    PAPIER = DUNKEL ? '5,7,13' : '245,247,246';
+    themaBeschriften();
+    serieWechseln(); logoRastern(); kornBasis = null; rendern(ist);
+    document.dispatchEvent(new Event('bl-thema'));   /* Menuezeile und Netze ziehen nach */
   });
   /* Nur zum Pruefen: blTest(0.97) haelt die Stelle 97 % fest (Konsole), blTest(null) gibt den Scroll frei. */
   window.blTest = function (p) { testP = p; ziel = ist = fortschritt(); rendern(ist); };
@@ -2154,34 +2179,6 @@
   }
 
   if (!sparsam) document.getElementById('strecke').style.height = (KARTE.laenge * TEMPO + 100) + 'vh';
-  /* Stelle nach dem Hell/Dunkel-Wechsel wiederherstellen (siehe Schalter oben); nach dem Laden der Schrift noch
-     einmal, falls sich die Abschnitte dadurch verschoben haben */
-  var gemerkt = null;
-  try { gemerkt = JSON.parse(sessionStorage.getItem('bl-lage')); sessionStorage.removeItem('bl-lage'); } catch (e) { gemerkt = null; }
-  function lageHerstellen() {
-    if (!gemerkt) return;
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    if (gemerkt.art === 'film') {
-      window.scrollTo(0, strecke.offsetTop + gemerkt.p * Math.max(0, strecke.offsetHeight - window.innerHeight));
-      return;
-    }
-    if (!abgespielt) {                               /* schon durch die Praesentation: gleich der fertige Hero */
-      abgespielt = true; strecke.style.height = 'auto';
-      document.documentElement.classList.add('abgespielt'); nochmalKnopf.tabIndex = 0;
-    }
-    if (gemerkt.art === 'schluss') { window.scrollTo(0, gemerkt.y); return; }
-    var el = document.querySelectorAll('#seite > *')[gemerkt.i];
-    if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - gemerkt.ab);
-  }
-  lageHerstellen();
-  if (gemerkt) {                                   /* nachfassen: Schrift geladen, Seite komplett, kurz danach */
-    ['wheel', 'touchmove', 'keydown', 'mousedown'].forEach(function (t) {     /* selbst gescrollt: nicht mehr nachfassen */
-      window.addEventListener(t, function () { gemerkt = null; }, { once: true, passive: true });
-    });
-    var nachfassen = function () { lageHerstellen(); ziel = ist = fortschritt(); rendern(ist); };
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(nachfassen);
-    window.addEventListener('load', function () { nachfassen(); setTimeout(function () { nachfassen(); gemerkt = null; }, 400); });
-  }
   texteBauen();
   einpassen();
   /* Kein Ladebildschirm mehr (2026-10-11): Startbild und Text stehen sofort, der Film laedt dahinter nach.
@@ -2190,7 +2187,6 @@
   function los() {
     if (losGelaufen) return; losGelaufen = true;
     einpassen(); logoRastern();
-    if (gemerkt) lageHerstellen();
     ziel = ist = sparsam ? 1 : fortschritt(); rendern(ist); intro(); endePruefen();
   }
   if (document.fonts && document.fonts.load) {

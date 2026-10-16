@@ -5,6 +5,51 @@
   var ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var BASIS = document.documentElement.getAttribute('data-basis') || '';
 
+  /* Besucherstatistik (2026-10-15): Matomo auf dem eigenen Server, ohne Cookies, IP gekuerzt. Die Seite zaehlt ueber ihre eigene
+     Adresse /statistik/ (nginx leitet nur matomo.js und matomo.php an den Matomo-Dienst weiter). Keine Zaehlung bei Widerspruch
+     (localStorage bl-statistik = aus, Schalter im Datenschutz), bei Do Not Track / Global Privacy Control und in der GitHub-Vorschau. */
+  function statWiderspruch() { try { return localStorage.getItem('bl-statistik') === 'aus'; } catch (e) { return false; } }
+  var statSignal = navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true;
+  var statAn = !statWiderspruch() && !statSignal && !/github\.io$/.test(location.hostname);
+  if (statAn) {
+    var _paq = window._paq = window._paq || [];
+    _paq.push(['disableCookies']);
+    _paq.push(['setTrackerUrl', '/statistik/matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    _paq.push(['enableHeartBeatTimer']);
+    var statSkript = document.createElement('script'); statSkript.async = true; statSkript.src = '/statistik/matomo.js';
+    document.head.appendChild(statSkript);
+  }
+  function statEreignis(kategorie, aktion) { if (statAn) window._paq.push(['trackEvent', kategorie, aktion, location.pathname]); }
+  /* Kontaktwege als Ereignis (Ziel "Kontakt" in Matomo), ohne Inhalte */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href], button.ueberspringen'); if (!a) return;
+    if (a.matches('button.ueberspringen')) { statEreignis('Startfilm', 'Übersprungen'); return; }
+    var h = a.getAttribute('href');
+    if (/^tel:/.test(h)) statEreignis('Kontakt', 'Anruf');
+    else if (/^mailto:/.test(h)) statEreignis('Kontakt', 'E-Mail');
+    else if (/wa\.me\/|whatsapp\.com/.test(h)) statEreignis('Kontakt', 'WhatsApp');
+  });
+  /* Schalter im Datenschutz: Widerspruch merken (kein Cookie), wirkt sofort fuer diese Seite und ab dem naechsten Aufruf */
+  var statWahl = document.getElementById('statistik-wahl');
+  if (statWahl) {
+    var swBox = statWahl.querySelector('input'), swText = statWahl.querySelector('.sw-status');
+    var swZeigen = function () {
+      if (statSignal) { swBox.checked = false; swBox.disabled = true; swText.textContent = 'Ihr Browser sendet ein Signal gegen Tracking. Ihr Besuch wird nicht erfasst.'; return; }
+      swBox.checked = !statWiderspruch();
+      swText.textContent = swBox.checked ? 'Ihr Besuch wird anonym erfasst.' : 'Sie haben widersprochen. Ihr Besuch wird nicht erfasst.';
+    };
+    swBox.addEventListener('change', function () {
+      try { if (swBox.checked) localStorage.removeItem('bl-statistik'); else localStorage.setItem('bl-statistik', 'aus'); } catch (e) {}
+      if (!swBox.checked && statAn) { window._paq.push(['requireConsent']); statAn = false; }
+      swZeigen();
+      if (swBox.checked && !statWiderspruch()) swText.textContent = 'Ab der nächsten Seite wird Ihr Besuch wieder anonym erfasst.';
+    });
+    swZeigen();
+  }
+
   /* Karten und Bloecke blenden beim Hereinscrollen ein (wie auf der bisherigen Seite) */
   if ('IntersectionObserver' in window && !ruhig) {
     var zeigen = new IntersectionObserver(function (eintraege) {
@@ -489,7 +534,7 @@
         .then(function (r) { return r.json().catch(function () { return { ok: false }; }).then(function (j) { return { code: r.status, j: j }; }); })
         .then(function (x) {
           kKnopf.disabled = false;
-          if (x.j.ok) { kForm.reset(); kMelde('Danke! Ihre Nachricht ist angekommen. Ich melde mich bei Ihnen.', true); return; }
+          if (x.j.ok) { kForm.reset(); statEreignis('Kontakt', 'Formular'); kMelde('Danke! Ihre Nachricht ist angekommen. Ich melde mich bei Ihnen.', true); return; }
           if (x.code === 429) kMelde('Zu viele Anfragen in kurzer Zeit. Bitte später erneut versuchen, an info@bloomlogic.de schreiben oder anrufen: 0151 207 88 220.');
           else kMelde('Das hat leider nicht geklappt. Bitte schreiben Sie an info@bloomlogic.de oder rufen Sie an: 0151 207 88 220.');
         })

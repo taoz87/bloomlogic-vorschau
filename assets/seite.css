@@ -1005,3 +1005,21 @@ html.dunkel #seite .fliessband::before { background-image:linear-gradient(rgba(8
 
 /* Fliessband-Ersatzvideo ohne WebGL (fliessband.js, 2026-10-15): liegt ueber dem Standbild, unter einer spaet startenden 3D-Szene */
 #seite .fliessband .fb-video { position:absolute; inset:0; z-index:0; width:100%; height:100%; object-fit:cover; display:block; }
+
+/* ---- Impressum und Datenschutz (2026-10-15): Artikel-Satz, Platzhalter gelb markiert bis zum Livegang ------- */
+#seite .recht h2 { font-size:clamp(1.15rem, 2.4vw, 1.35rem); margin-top:2rem; }
+#seite .recht a { color:var(--accent); text-underline-offset:3px; }
+#seite .platzhalter { padding:0.05em 0.3em; border-radius:4px; background:#FFF3C4; color:#5C4A12; font-weight:500; }
+html.dunkel #seite .platzhalter { background:#4A3D12; color:#FFE9A3; }
+
+/* Widerspruch gegen die Besucherstatistik (Datenschutz, 2026-10-15) */
+#seite .statistik-wahl { margin:1.25rem 0 0; padding:1rem 1.25rem; border:1px solid var(--rule); border-radius:12px; background:var(--surface); }
+#seite .statistik-wahl label { display:flex; align-items:center; gap:0.75rem; font-weight:500; color:var(--ink); cursor:pointer; }
+#seite .statistik-wahl input { width:1.2rem; height:1.2rem; flex:none; margin:0; accent-color:#10B48C; cursor:pointer; }
+#seite .statistik-wahl .sw-status { margin:0.5rem 0 0; font-size:0.95rem; color:var(--soft); }
+#seite .statistik-wahl .sw-status:empty { display:none; }
+
+/* Kurze Seiten (Impressum): Grund im Dunkelmodus bis unten dunkel, Fuss sitzt am unteren Rand (2026-10-15) */
+html.dunkel, html.dunkel body { background:#080B12; }
+#seite:has(> .recht) { min-height:100vh; min-height:100svh; display:flex; flex-direction:column; }
+#seite > .recht { flex:1 0 auto; }
